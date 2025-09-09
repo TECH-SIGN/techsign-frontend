@@ -1,3 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/preflight";   /* resets */
+@import "tailwindcss/theme";       /* design tokens */
+@import "tailwindcss/utilities";   /* utilities */
