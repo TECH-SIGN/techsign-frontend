@@ -1,0 +1,150 @@
+import * as React from 'react'
+import { cn } from '../../lib/cn'
+import type { NavLink } from '../../types'
+import { Link } from 'react-router-dom'
+
+export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
+  logo?: string | React.ReactNode
+  logoHref?: string
+  links: NavLink[]
+  rightActions?: React.ReactNode
+  sticky?: boolean
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  logo,
+  logoHref = '/',
+  links,
+  rightActions,
+  sticky = true,
+  className,
+  ...props
+}) => {
+  const [open, setOpen] = React.useState(false)
+  const menuRef = React.useRef<HTMLDivElement>(null)
+
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  React.useEffect(() => {
+    function onClickOutside(e: MouseEvent) {
+      if (!menuRef.current) return
+      if (open && !menuRef.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', onClickOutside)
+    return () => document.removeEventListener('mousedown', onClickOutside)
+  }, [open])
+
+  return (
+    <nav
+      className={cn(
+        'w-full bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-slate-200/80',
+        sticky && 'sticky top-0 z-50',
+        className
+      )}
+      aria-label="Main Navigation"
+      {...props}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-14 items-center justify-between">
+          {/* Left: Logo */}
+          <div className="flex flex-1 items-center">
+            {logo ? (
+              typeof logo === 'string' ? (
+                <Link to={logoHref ?? '/'} className="text-base font-semibold text-slate-900">
+                  {logo}
+                </Link>
+              ) : (
+                <Link to={logoHref ?? '/'} className="inline-flex items-center" aria-label="Home">
+                  {logo}
+                </Link>
+              )
+            ) : null}
+          </div>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex md:items-center md:gap-6">
+            <ul className="flex items-center gap-6">
+              {links.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    to={item.href}
+                    className="text-sm font-medium text-slate-600 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            {rightActions ? <div className="ml-4 flex items-center gap-2">{rightActions}</div> : null}
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-md p-2 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+              aria-controls="mobile-menu"
+              aria-expanded={open}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              onClick={() => setOpen((o) => !o)}
+            >
+              <svg
+                className={cn('h-6 w-6', open && 'hidden')}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <svg
+                className={cn('h-6 w-6', !open && 'hidden')}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile panel */}
+      <div
+        id="mobile-menu"
+        ref={menuRef}
+        className={cn('md:hidden border-t border-slate-200/80 bg-white', open ? 'block' : 'hidden')}
+      >
+        <div className="space-y-1 px-4 py-3 sm:px-6">
+          {links.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              onClick={() => setOpen(false)}
+              className="block rounded px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+            >
+              {item.label}
+            </Link>
+          ))}
+          {rightActions ? <div className="pt-2">{rightActions}</div> : null}
+        </div>
+      </div>
+    </nav>
+  )
+}
+
+export default Navbar
