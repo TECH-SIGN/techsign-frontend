@@ -1,5 +1,5 @@
 module.exports = {
-  content: ['./index.html', './src/**/*.{ts,tsx,js,jsx}'],
+ 
   // we will disable preflight for MUI integration (see next step)
   corePlugins: {
     preflight: false,
@@ -8,5 +8,7 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('tw-animate-css'),
+  ],
 }
