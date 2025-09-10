@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { FeatureCard } from '../components/cards'
-import { FEATURE_CARDS } from '../constants'
+import { BRAND_NAME, FEATURE_CARDS } from '../constants'
 import { Button } from '../components/ui'
 
 const Home: React.FC = () => {
@@ -8,8 +8,7 @@ const Home: React.FC = () => {
     <section className="space-y-6 text-center">
       <h1 className="text-3xl font-bold tracking-tight">Welcome to TechSign</h1>
       <p className="text-slate-600 max-w-3xl mx-auto">
-        Your trusted platform for digital commerce and services. Manage your account,
-        explore policies, and access all our features.
+        {BRAND_NAME} is a digital agency focused on crafting intelligent websites, powerful backends, and AI-driven solutions that help businesses scale with confidence.
       </p>
 
       <div className="mx-auto max-w-3xl">
