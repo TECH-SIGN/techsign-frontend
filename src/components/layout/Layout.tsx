@@ -34,7 +34,7 @@ export const Layout: React.FC<LayoutProps> = ({
         sticky={navbar?.sticky}
         className={navbar?.className}
       />
-      <main className={cn('mx-auto w-full max-w-7xl flex-1 px-4 py-10 sm:px-6 lg:px-8', containerClassName)}>
+      <main className={cn('mx-auto w-full max-w-7xl flex-1 px-4 py-12 sm:px-6 lg:px-8', containerClassName)}>
         {children ? children : <Outlet />}
       </main>
       <Footer
