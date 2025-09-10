@@ -2,10 +2,7 @@ import type { Config } from 'tailwindcss'
 import animateCss from 'tw-animate-css'
 
 const config: Config = {
-  // disable preflight for MUI integration
-  corePlugins: {
-    preflight: false,
-  },
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
   important: '#root',
   theme: {
     extend: {},
