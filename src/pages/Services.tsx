@@ -1,26 +1,30 @@
 import * as React from 'react'
 import { ServicesGrid } from '../components/sections'
 import { Button } from '../components/ui'
+import { Section } from '../components/layout'
 
 const Services: React.FC = () => {
   return (
-    <section className="space-y-10">
-      {/* Hero */}
-      <div className="text-center space-y-3">
-        <h1 className="text-3xl font-bold tracking-tight">Our Services</h1>
-        <p className="text-slate-600">Explore what TechSign can do for you</p>
-      </div>
+    <div className="space-y-12">
+      <Section py="normal">
+        <div className="text-center space-y-4">
+          <h1 className="text-3xl font-bold tracking-tight">Our Services</h1>
+          <p className="text-slate-600">Explore what TechSign can do for you</p>
+        </div>
+      </Section>
 
-      {/* Services Grid */}
-      <ServicesGrid />
+      <Section py="normal">
+        <ServicesGrid />
+      </Section>
 
-      {/* CTA */}
-      <div className="text-center">
-        <a href="#contact">
-          <Button>Contact Us</Button>
-        </a>
-      </div>
-    </section>
+      <Section py="normal">
+        <div className="text-center">
+          <a href="#contact">
+            <Button>Contact Us</Button>
+          </a>
+        </div>
+      </Section>
+    </div>
   )
 }
 
