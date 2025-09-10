@@ -1,3 +1,8 @@
 @import "tailwindcss/preflight";   /* resets */
 @import "tailwindcss/theme";       /* design tokens */
 @import "tailwindcss/utilities";   /* utilities */
+
+/* index.css */
+@import "@fontsource/montserrat/400.css";  /* Regular */
+@import "@fontsource/montserrat/700.css";  /* Bold */
+
