@@ -10,7 +10,7 @@ export interface FeatureCardProps extends React.HTMLAttributes<HTMLDivElement> {
 export const FeatureCard: React.FC<FeatureCardProps> = ({ data, className, ...props }) => {
   return (
     <div
-      className={cn('rounded-lg border border-slate-200 p-4 shadow-sm bg-white', className)}
+      className={cn('rounded-lg border border-slate-200 p-4 shadow-sm bg-white h-full flex flex-col', className)}
       role="region"
       aria-labelledby={`${data.id}-title`}
       {...props}
@@ -22,7 +22,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({ data, className, ...pr
       <div className="mt-3">
         <Button
           variant="outline"
-          className="w-full justify-start"
+          className="w-full justify-start whitespace-normal break-words text-left"
           disabled={data.action.disabled}
           onClick={() => {
             if (data.action.href && !data.action.disabled) {
