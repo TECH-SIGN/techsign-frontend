@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { cn } from '../../lib/cn'
 import type { FooterLink } from '../../types'
-import Container from './Container'
+import Container from './Spacing/Container'
 
 export interface FooterProps extends React.HTMLAttributes<HTMLDivElement> {
   links?: FooterLink[]
