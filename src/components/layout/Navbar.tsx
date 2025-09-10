@@ -2,6 +2,7 @@ import * as React from 'react'
 import { cn } from '../../lib/cn'
 import type { NavLink } from '../../types'
 import { Link } from 'react-router-dom'
+import Container from './Spacing/Container'
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   logo?: string | React.ReactNode
@@ -52,7 +53,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       aria-label="Main Navigation"
       {...props}
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Container fluid className="px-0">
         <div className="flex h-14 items-center justify-between">
           {/* Left: Logo */}
           <div className="flex flex-1 items-center">
@@ -121,7 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* Mobile panel */}
       <div
