@@ -67,7 +67,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav
       className={cn(
-        'w-full bg-white/100 supports-[backdrop-filter]:bg-white/100 transition-transform duration-300',
+        'w-full bg-white/100 transition-transform duration-500',
         sticky && 'sticky top-0 z-50',
         hidden ? '-translate-y-full' : 'translate-y-0',
         className
