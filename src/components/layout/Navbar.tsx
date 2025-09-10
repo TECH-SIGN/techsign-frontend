@@ -2,7 +2,7 @@ import * as React from 'react'
 import { cn } from '../../lib/cn'
 import type { NavLink } from '../../types'
 import { Link } from 'react-router-dom'
-import Container from './Container'
+import Container from './Spacing/Container'
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   logo?: string | React.ReactNode
