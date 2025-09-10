@@ -22,8 +22,29 @@ export const Navbar: React.FC<NavbarProps> = ({
   ...props
 }) => {
   const [open, setOpen] = React.useState(false)
+  const [hidden, setHidden] = React.useState(false)
   const menuRef = React.useRef<HTMLDivElement>(null)
+  const lastScrollY = React.useRef(0)
 
+  React.useEffect(() => {
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY
+
+    if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+      // Scroll down → hide navbar
+      setHidden(true)
+    } else {
+      // Scroll up → show navbar
+      setHidden(false)
+    }
+
+    lastScrollY.current = currentScrollY
+  }
+
+  window.addEventListener("scroll", handleScroll)
+  return () => window.removeEventListener("scroll", handleScroll)
+}, [])
+  
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false)
@@ -46,24 +67,25 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav
       className={cn(
-        'w-full bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-slate-200/80',
+        'w-full bg-white/100 supports-[backdrop-filter]:bg-white/100 transition-transform duration-300',
         sticky && 'sticky top-0 z-50',
+        hidden ? '-translate-y-full' : 'translate-y-0',
         className
       )}
       aria-label="Main Navigation"
       {...props}
     >
       <Container fluid className="px-0">
-        <div className="flex h-14 items-center justify-between">
+        <div className="flex h-17 items-center justify-between">
           {/* Left: Logo */}
           <div className="flex flex-1 items-center">
             {logo ? (
               typeof logo === 'string' ? (
-                <Link to={logoHref ?? '/'} className="text-base font-semibold text-slate-900">
+                <Link to={logoHref ?? '/'} className=" pl-4 text-xl font-bold text-slate-950">
                   {logo}
                 </Link>
               ) : (
-                <Link to={logoHref ?? '/'} className="inline-flex items-center" aria-label="Home">
+                <Link to={logoHref ?? '/'} className="inline-flex items-center text-xl" aria-label="Home">
                   {logo}
                 </Link>
               )
@@ -72,12 +94,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Desktop links */}
           <div className="hidden md:flex md:items-center md:gap-6">
-            <ul className="flex items-center gap-6">
+            <ul className="flex items-center gap-12">
               {links.map((item) => (
                 <li key={item.href}>
                   <Link
                     to={item.href}
-                    className="text-sm font-medium text-slate-600 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded"
+                    className="text-sm font-medium text-slate-900 hover:text-slate-400 focus:outline-none
+                    rounded"
                   >
                     {item.label}
                   </Link>
@@ -91,7 +114,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="md:hidden">
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-md p-2 text-slate-700 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+              className="inline-flex items-center justify-center rounded-md p-2 text-slate-900 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
               aria-controls="mobile-menu"
               aria-expanded={open}
               aria-label={open ? 'Close menu' : 'Open menu'}
