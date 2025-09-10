@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",   // ✅ best with Node 22
+    "module": "ESNext",
+    "moduleResolution": "bundler",   // ✅ best with Node 22
     "esModuleInterop": true,
     "skipLibCheck": true,
     "allowJs": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "strict": true
+    "strict": true,
+    "jsx": "react-jsx"  
   },
   "include": [
     "src",
