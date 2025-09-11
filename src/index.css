@@ -6,3 +6,38 @@
 @import "@fontsource/montserrat/400.css";  /* Regular */
 @import "@fontsource/montserrat/700.css";  /* Bold */
 
+:root {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 50;
+  transform: translate(-50%, -50%);
+  transition: transform 120ms ease, background-color 200ms ease, width 120ms ease, height 120ms ease, opacity 200ms ease;
+  background-color: rgba(15, 23, 42, 0.8); /* slate-900 */
+  opacity: 0.8;
+}
+
+.custom-cursor--hover {
+  width: 32px;
+  height: 32px;
+  opacity: 0.6;
+}
+
+/* Use [data-cursor="hover"] on interactive elements for enlarging effect */
+[data-cursor="hover"] {
+  position: relative;
+}
+
