@@ -4,6 +4,7 @@ import Footer, { type FooterProps } from './Footer'
 import { cn } from '../../lib/cn'
 import { NAVBAR_LINKS, FOOTER_LINKS, LOGO_TEXT, BRAND_NAME } from '../../constants'
 import { Outlet } from 'react-router-dom'
+import Cursor from '../ui/Cursor'
 
 export interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   navbar?: Omit<NavbarProps, 'className'> & { className?: string }
@@ -42,6 +43,7 @@ export const Layout: React.FC<LayoutProps> = ({
         links={footer?.links ?? FOOTER_LINKS}
         className={footer?.className}
       />
+      <Cursor />
     </div>
   )
 }
