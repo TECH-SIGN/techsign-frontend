@@ -5,7 +5,8 @@
 /* index.css */
 /* Body + Display font: Montserrat */
 @import "@fontsource/montserrat/500.css";  /* Default light */
-@import "@fontsource/montserrat/800.css";  /* Bold */
+@import "@fontsource/montserrat/700.css";  /* Bold */
+@import "@fontsource/montserrat/900.css";  /* Bold */
 
 :root {
   --font-sans: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
