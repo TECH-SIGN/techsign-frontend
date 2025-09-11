@@ -3,15 +3,24 @@
 @import "tailwindcss/utilities";   /* utilities */
 
 /* index.css */
-@import "@fontsource/montserrat/400.css";  /* Regular */
-@import "@fontsource/montserrat/700.css";  /* Bold */
+/* Body + Display font: Montserrat */
+@import "@fontsource/montserrat/500.css";  /* Default light */
+@import "@fontsource/montserrat/800.css";  /* Bold */
 
 :root {
   --font-sans: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
+  --font-display: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial;
 }
 
 body {
   font-family: var(--font-sans);
+  font-weight: 300; /* default weight site-wide */
+}
+
+/* Use display font for headings and logo text */
+h1, h2, h3, .logo {
+  font-family: var(--font-display);
+  font-weight: 700; /* default bold for headings and logo */
 }
 
 /* Custom cursor styles */
