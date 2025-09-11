@@ -4,6 +4,8 @@ export function useCursor() {
   const ref = useRef<HTMLDivElement | null>(null)
   const [hover, setHover] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const pos = useRef({ x: 0, y: 0, tx: 0, ty: 0 })
+  const raf = useRef<number | null>(null)
 
   useEffect(() => {
     const el = ref.current
@@ -12,7 +14,8 @@ export function useCursor() {
     let hoveringCount = 0
 
     const onMove = (e: MouseEvent) => {
-      el.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`
+      pos.current.tx = e.clientX
+      pos.current.ty = e.clientY
       if (hidden) setHidden(false)
     }
 
@@ -38,14 +41,15 @@ export function useCursor() {
     }
 
     window.addEventListener('mousemove', onMove)
-    // Delegated hover tracking for elements opting-in with data-cursor="hover"
+    // Delegated hover tracking for interactive elements and explicit opt-in
+    const hoverSelector = 'a, button, [role="button"], [data-cursor="hover"]'
     document.addEventListener('mouseover', (e) => {
       const t = e.target as HTMLElement
-      if (t && t.closest('[data-cursor="hover"]')) onOver(e)
+      if (t && t.closest(hoverSelector)) onOver(e)
     })
     document.addEventListener('mouseout', (e) => {
       const t = e.target as HTMLElement
-      if (t && t.closest('[data-cursor="hover"]')) onOut(e)
+      if (t && t.closest(hoverSelector)) onOut(e)
     })
 
     // Hide cursor when leaving the page / window loses focus
@@ -57,6 +61,18 @@ export function useCursor() {
     document.addEventListener('mouseover', onDocMouseOver)
     document.addEventListener('visibilitychange', onVisibility)
 
+    // Smooth follow loop (spring-like lerp)
+    const follow = () => {
+      const p = pos.current
+      // damping factor for smooth, natural motion (0.15..0.25)
+      const k = 0.2
+      p.x += (p.tx - p.x) * k
+      p.y += (p.ty - p.y) * k
+      el.style.transform = `translate(${p.x}px, ${p.y}px)`
+      raf.current = requestAnimationFrame(follow)
+    }
+    raf.current = requestAnimationFrame(follow)
+
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseleave', onWindowLeave)
@@ -66,6 +82,7 @@ export function useCursor() {
       document.removeEventListener('mouseout', onDocMouseOut)
       document.removeEventListener('mouseover', onDocMouseOver)
       document.removeEventListener('visibilitychange', onVisibility)
+      if (raf.current) cancelAnimationFrame(raf.current)
     }
   }, [hidden])
 
