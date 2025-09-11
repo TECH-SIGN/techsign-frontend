@@ -16,8 +16,8 @@ const Home: React.FC = () => {
     <div className="bg-white text-slate-900">
       {/* ================= Hero Section ================= */}
       <Hero
-        title="We craft premium digital experiences"
-        subtitle="TechSign is your partner for performant, accessible, and beautiful web products."
+        title={"From concept to launch, TechSign builds solutions that stand out and scale."}
+        subtitle= "Scalable, secure, and smart solutions for ambitious brands"
         ctaLabel="Get in touch"
         ctaHref="/contact"
         videoSrc={shortVideo}

@@ -27,24 +27,24 @@ export const Navbar: React.FC<NavbarProps> = ({
   const lastScrollY = React.useRef(0)
 
   React.useEffect(() => {
-  const handleScroll = () => {
-    const currentScrollY = window.scrollY
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
 
-    if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-      // Scroll down → hide navbar
-      setHidden(true)
-    } else {
-      // Scroll up → show navbar
-      setHidden(false)
+      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+        // Scroll down → hide navbar
+        setHidden(true)
+      } else {
+        // Scroll up → show navbar
+        setHidden(false)
+      }
+
+      lastScrollY.current = currentScrollY
     }
 
-    lastScrollY.current = currentScrollY
-  }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
-  window.addEventListener("scroll", handleScroll)
-  return () => window.removeEventListener("scroll", handleScroll)
-}, [])
-  
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false)
@@ -78,10 +78,10 @@ export const Navbar: React.FC<NavbarProps> = ({
       <Container fluid className="px-0">
         <div className="flex h-17 items-center justify-between">
           {/* Left: Logo */}
-          <div className="flex flex-1 items-center">
+          <div className="flex flex-1 items-center pl-20">
             {logo ? (
               typeof logo === 'string' ? (
-                <Link to={logoHref ?? '/'} className="text-base font-semibold text-slate-900" data-cursor="hover">
+                <Link to={logoHref ?? '/'} className="text-2xl font-semibold text-slate-900" data-cursor="hover">
                   {logo}
                 </Link>
               ) : (
@@ -93,16 +93,21 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop links */}
-          <div className="hidden md:flex md:items-center md:gap-6">
-            <ul className="flex items-center gap-12">
+          <div className="hidden md:flex md:items-center md:gap-6 pr-20">
+            <ul className="flex items-center gap-14">
               {links.map((item) => (
-                <li key={item.href}>
+                <li key={item.href} className="overflow-hidden">
                   <Link
                     to={item.href}
-                    className="text-sm font-medium text-slate-600 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded"
+                    className="group relative block overflow-hidden text-lg font-medium text-slate-950"
                     data-cursor="hover"
                   >
-                    {item.label}
+                    <span className="block translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:-translate-y-full">
+                      {item.label}
+                    </span>
+                    <span className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-y-0">
+                      {item.label}
+                    </span>
                   </Link>
                 </li>
               ))}
