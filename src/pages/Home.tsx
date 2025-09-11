@@ -2,6 +2,9 @@ import * as React from "react"
 import { BRAND_NAME } from "../constants"
 import { Button } from "../components/ui"
 import { motion } from "framer-motion"
+import Hero from '../components/sections/Hero'
+import shortVideo from '../assets/short.mp4'
+import Magnetic from '../components/ui/Magnetic'
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },
@@ -12,58 +15,28 @@ const Home: React.FC = () => {
   return (
     <div className="bg-white text-slate-900">
       {/* ================= Hero Section ================= */}
-      <section
-        className="py-28"
-        role="region"
-        aria-labelledby="hero-heading"
-      >
-        <div className="mx-auto max-w-6xl px-4 text-center space-y-8">
-          <motion.h1
-            id="hero-heading"
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 1 }}
-            className="text-6xl md:text-8xl font-bold tracking-tight font-montserrat"
-          >
-            Digital agency focused <br />
-            <span className="text-slate-500">on scalable systems</span>
-          </motion.h1>
-
-          <motion.p
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.4, duration: 1 }}
-            className="text-xl max-w-3xl mx-auto text-slate-600"
-          >
-            We craft intelligent websites, scalable backends, and AI-driven
-            solutions that empower businesses to grow with confidence.
-          </motion.p>
-
-          <motion.div
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 0.8, duration: 1 }}
-          >
-            <Button className="px-10 py-4 text-lg font-bold bg-slate-900 text-white hover:bg-slate-700">
-              Let’s Build Together
-            </Button>
-          </motion.div>
-        </div>
-      </section>
+      <Hero
+        title="We craft premium digital experiences"
+        subtitle="TechSign is your partner for performant, accessible, and beautiful web products."
+        ctaLabel="Get in touch"
+        ctaHref="/contact"
+        videoSrc={shortVideo}
+        poster="/images/hero-poster.svg"
+        overlay
+      />
 
       {/* ================= Services Section ================= */}
       <section
         className="py-28 border-t border-slate-200"
         role="region"
         aria-labelledby="services-heading"
+        data-animate="fade-up"
       >
         <div className="mx-auto max-w-6xl px-4">
           <h2
             id="services-heading"
             className="text-5xl font-bold font-montserrat mb-16 text-center"
+            data-parallax="20"
           >
             What We Do
           </h2>
@@ -113,11 +86,13 @@ const Home: React.FC = () => {
         className="py-28 border-t border-slate-200"
         role="region"
         aria-labelledby="portfolio-heading"
+        data-animate="fade-up"
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
           <h2
             id="portfolio-heading"
             className="text-5xl font-bold font-montserrat mb-16"
+            data-parallax="20"
           >
             Selected Work
           </h2>
@@ -134,8 +109,8 @@ const Home: React.FC = () => {
                 className="relative group overflow-hidden rounded-xl shadow-lg"
               >
                 <img
-                  src={`/portfolio/project${item}.jpg`}
-                  alt={`Project ${item}`}
+                  src={`/images/placeholder-${item}.svg`}
+                  alt={`Placeholder project ${item}`}
                   className="w-full h-[400px] object-cover transform group-hover:scale-105 transition duration-700"
                 />
                 <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
@@ -154,11 +129,13 @@ const Home: React.FC = () => {
         className="py-28 border-t border-slate-200"
         role="region"
         aria-labelledby="why-heading"
+        data-animate="fade-up"
       >
         <div className="mx-auto max-w-6xl px-4 text-center">
           <h2
             id="why-heading"
             className="text-5xl font-bold font-montserrat mb-16"
+            data-parallax="20"
           >
             Why Choose Us
           </h2>
@@ -166,22 +143,22 @@ const Home: React.FC = () => {
           <div className="grid gap-16 md:grid-cols-4">
             {[
               {
-                icon: "🚀",
+                icon: "",
                 title: "Scalable",
                 desc: "Solutions designed to grow with your business.",
               },
               {
-                icon: "🔒",
+                icon: "",
                 title: "Secure",
                 desc: "Robust architecture with enterprise-level security.",
               },
               {
-                icon: "🧠",
+                icon: "",
                 title: "Intelligent",
                 desc: "AI at the core of smarter digital products.",
               },
               {
-                icon: "🌍",
+                icon: "",
                 title: "Global",
                 desc: "Working with clients across the world.",
               },
@@ -209,11 +186,13 @@ const Home: React.FC = () => {
         className="py-28 bg-slate-900 text-white text-center"
         role="region"
         aria-labelledby="cta-heading"
+        data-animate="fade-up"
       >
         <div className="mx-auto max-w-4xl space-y-8 px-4">
           <h2
             id="cta-heading"
             className="text-5xl font-bold font-montserrat"
+            data-parallax="15"
           >
             Ready to build your next big project?
           </h2>
@@ -221,9 +200,11 @@ const Home: React.FC = () => {
             Let’s collaborate and craft intelligent, scalable solutions that
             make a difference.
           </p>
-          <Button className="px-10 py-4 text-lg font-bold bg-white text-slate-900 hover:bg-slate-200">
-            Get in Touch
-          </Button>
+          <Magnetic>
+            <Button data-cursor="hover" className="px-10 py-4 text-lg font-bold bg-white text-slate-900 hover:bg-slate-200">
+              Get in Touch
+            </Button>
+          </Magnetic>
         </div>
       </section>
     </div>
