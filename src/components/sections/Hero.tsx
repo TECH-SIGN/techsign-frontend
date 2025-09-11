@@ -25,11 +25,11 @@ const Hero: React.FC<HeroProps> = ({
   ...props
 }) => {
   return (
-    <section className={cn('relative overflow-hidden bg-white', className)} {...props}>
+    <section className={cn('relative bg-white', className)} {...props}>
 
       {/* Content below video (no overlap) */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 text-center text-slate-900" data-animate="fade-up">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight" data-parallax="15">
+        <h1 className="text-4xl sm:text-4xl lg:text-5xl font-bold leading-tight whitespace-pre-line" data-parallax="15">
           {title}
         </h1>
         {subtitle ? (
@@ -43,7 +43,7 @@ const Hero: React.FC<HeroProps> = ({
       
       {/* Video block (independent video, consistent aspect ratio) */}
       {videoSrc ? (
-        <div className="relative w-full h-[80vh] rounded-[40px] overflow-hidden" data-animate="fade-up" data-scrub-video>
+        <div className="relative h-[85vh] w-full rounded-[40px] overflow-hidden" data-animate="fade-up" data-scrub-video>
           <video
             className="block w-full h-full object-cover rounded-[40px] will-change-transform transform-gpu"
             src={videoSrc}
