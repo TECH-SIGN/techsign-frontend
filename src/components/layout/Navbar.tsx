@@ -81,11 +81,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex flex-1 items-center">
             {logo ? (
               typeof logo === 'string' ? (
-                <Link to={logoHref ?? '/'} className=" pl-4 text-xl font-bold text-slate-950">
+                <Link to={logoHref ?? '/'} className="text-base font-semibold text-slate-900" data-cursor="hover">
                   {logo}
                 </Link>
               ) : (
-                <Link to={logoHref ?? '/'} className="inline-flex items-center text-xl" aria-label="Home">
+                <Link to={logoHref ?? '/'} className="inline-flex items-center" aria-label="Home" data-cursor="hover">
                   {logo}
                 </Link>
               )
@@ -99,15 +99,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <li key={item.href}>
                   <Link
                     to={item.href}
-                    className="text-sm font-medium text-slate-900 hover:text-slate-400 focus:outline-none
-                    rounded"
+                    className="text-sm font-medium text-slate-600 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 rounded"
+                    data-cursor="hover"
                   >
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
-            {rightActions ? <div className="ml-4 flex items-center gap-2">{rightActions}</div> : null}
+            {rightActions ? <div className="ml-4 flex items-center gap-2" data-cursor="hover">{rightActions}</div> : null}
           </div>
 
           {/* Mobile menu button */}
@@ -160,6 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               to={item.href}
               onClick={() => setOpen(false)}
               className="block rounded px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+              data-cursor="hover"
             >
               {item.label}
             </Link>
