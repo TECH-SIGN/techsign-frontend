@@ -1,45 +1,229 @@
-import * as React from 'react'
-import { FeatureCard } from '../components/cards'
-import { BRAND_NAME, FEATURE_CARDS } from '../constants'
-import { Button } from '../components/ui'
-import { motion } from 'framer-motion'
+import * as React from "react"
+import { BRAND_NAME } from "../constants"
+import { Button } from "../components/ui"
+import { motion } from "framer-motion"
 
+const fadeInUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0 },
+}
 
 const Home: React.FC = () => {
   return (
-    <div className='bg-white/100'>
-      {/* Hero */}
-      <section className="py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <motion.h1 
-            initial={{ opacity: 0, y: 50 }}     // start hidden & below
-            animate={{ opacity: 1, y: 0 }}       // animate to visible & normal position
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="text-slate-950 text-7xl font-bold tracking-tight font-montserrat">{BRAND_NAME} is a digital agency</motion.h1>
-          <p className=" text-lg text-slate-800 max-w-3xl mx-auto font-montserrat">
-            focused on crafting intelligent websites, powerful backends, and AI-driven solutions that help businesses scale with confidence.
-          </p>
+    <div className="bg-white text-slate-900">
+      {/* ================= Hero Section ================= */}
+      <section
+        className="py-28"
+        role="region"
+        aria-labelledby="hero-heading"
+      >
+        <div className="mx-auto max-w-6xl px-4 text-center space-y-8">
+          <motion.h1
+            id="hero-heading"
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            transition={{ duration: 1 }}
+            className="text-6xl md:text-8xl font-bold tracking-tight font-montserrat"
+          >
+            Digital agency focused <br />
+            <span className="text-slate-500">on scalable systems</span>
+          </motion.h1>
+
+          <motion.p
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.4, duration: 1 }}
+            className="text-xl max-w-3xl mx-auto text-slate-600"
+          >
+            We craft intelligent websites, scalable backends, and AI-driven
+            solutions that empower businesses to grow with confidence.
+          </motion.p>
+
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.8, duration: 1 }}
+          >
+            <Button className="px-10 py-4 text-lg font-bold bg-slate-900 text-white hover:bg-slate-700">
+              Let’s Build Together
+            </Button>
+          </motion.div>
         </div>
       </section>
 
-      {/* Feature Cards */}
-      <section className="py-8">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-8 sm:grid-cols-3 text-left items-stretch">
-            {FEATURE_CARDS.map((card) => (
-              <FeatureCard key={card.id} data={card} />
+      {/* ================= Services Section ================= */}
+      <section
+        className="py-28 border-t border-slate-200"
+        role="region"
+        aria-labelledby="services-heading"
+      >
+        <div className="mx-auto max-w-6xl px-4">
+          <h2
+            id="services-heading"
+            className="text-5xl font-bold font-montserrat mb-16 text-center"
+          >
+            What We Do
+          </h2>
+
+          <div className="space-y-16">
+            {[
+              {
+                title: "Web Development",
+                desc: "Modern, responsive, and scalable websites tailored for your business.",
+              },
+              {
+                title: "Backend & Cloud",
+                desc: "High-performance and secure backend systems with cloud-native architecture.",
+              },
+              {
+                title: "AI & Automation",
+                desc: "Intelligent, AI-powered automation that drives efficiency and growth.",
+              },
+              {
+                title: "UI/UX Design",
+                desc: "Beautiful, human-centered design that engages and converts users.",
+              },
+            ].map((service, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: idx * 0.2 }}
+                className="flex flex-col md:flex-row md:items-start md:space-x-10"
+              >
+                <div className="md:w-1/3 text-3xl font-semibold">
+                  {service.title}
+                </div>
+                <div className="md:w-2/3 text-lg text-slate-600">
+                  {service.desc}
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Quick Access */}
-      <section className="py-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-xl font-semibold">Quick Access</h2>
-          <div className="mt-4 flex justify-center">
-            <Button className="min-w-56">Account Deletion Policy</Button>
+      {/* ================= Portfolio Section ================= */}
+      <section
+        className="py-28 border-t border-slate-200"
+        role="region"
+        aria-labelledby="portfolio-heading"
+      >
+        <div className="mx-auto max-w-6xl px-4 text-center">
+          <h2
+            id="portfolio-heading"
+            className="text-5xl font-bold font-montserrat mb-16"
+          >
+            Selected Work
+          </h2>
+
+          <div className="space-y-20">
+            {[1, 2, 3].map((item) => (
+              <motion.div
+                key={item}
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8 }}
+                className="relative group overflow-hidden rounded-xl shadow-lg"
+              >
+                <img
+                  src={`/portfolio/project${item}.jpg`}
+                  alt={`Project ${item}`}
+                  className="w-full h-[400px] object-cover transform group-hover:scale-105 transition duration-700"
+                />
+                <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                  <h3 className="text-2xl font-bold text-white">
+                    Project {item}
+                  </h3>
+                </div>
+              </motion.div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* ================= Why Choose Us Section ================= */}
+      <section
+        className="py-28 border-t border-slate-200"
+        role="region"
+        aria-labelledby="why-heading"
+      >
+        <div className="mx-auto max-w-6xl px-4 text-center">
+          <h2
+            id="why-heading"
+            className="text-5xl font-bold font-montserrat mb-16"
+          >
+            Why Choose Us
+          </h2>
+
+          <div className="grid gap-16 md:grid-cols-4">
+            {[
+              {
+                icon: "🚀",
+                title: "Scalable",
+                desc: "Solutions designed to grow with your business.",
+              },
+              {
+                icon: "🔒",
+                title: "Secure",
+                desc: "Robust architecture with enterprise-level security.",
+              },
+              {
+                icon: "🧠",
+                title: "Intelligent",
+                desc: "AI at the core of smarter digital products.",
+              },
+              {
+                icon: "🌍",
+                title: "Global",
+                desc: "Working with clients across the world.",
+              },
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                variants={fadeInUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.6, delay: idx * 0.2 }}
+                className="space-y-4"
+              >
+                <div className="text-5xl">{item.icon}</div>
+                <h3 className="text-xl font-semibold">{item.title}</h3>
+                <p className="text-slate-600">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================= Final CTA Section ================= */}
+      <section
+        className="py-28 bg-slate-900 text-white text-center"
+        role="region"
+        aria-labelledby="cta-heading"
+      >
+        <div className="mx-auto max-w-4xl space-y-8 px-4">
+          <h2
+            id="cta-heading"
+            className="text-5xl font-bold font-montserrat"
+          >
+            Ready to build your next big project?
+          </h2>
+          <p className="text-lg text-slate-300">
+            Let’s collaborate and craft intelligent, scalable solutions that
+            make a difference.
+          </p>
+          <Button className="px-10 py-4 text-lg font-bold bg-white text-slate-900 hover:bg-slate-200">
+            Get in Touch
+          </Button>
         </div>
       </section>
     </div>
