@@ -27,7 +27,7 @@ const Home: React.FC = () => {
 
       {/* ================= Services Section ================= */}
       <section
-        className="py-28 border-t border-slate-200"
+        className="py-28"
         role="region"
         aria-labelledby="services-heading"
         data-animate="fade-up"
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
 
       {/* ================= Portfolio Section ================= */}
       <section
-        className="py-28 border-t border-slate-200"
+        className="py-28"
         role="region"
         aria-labelledby="portfolio-heading"
         data-animate="fade-up"
@@ -126,7 +126,7 @@ const Home: React.FC = () => {
 
       {/* ================= Why Choose Us Section ================= */}
       <section
-        className="py-28 border-t border-slate-200"
+        className="py-28"
         role="region"
         aria-labelledby="why-heading"
         data-animate="fade-up"
