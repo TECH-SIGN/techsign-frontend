@@ -74,7 +74,7 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
     <section className={cn('relative bg-white', className)} {...props}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 text-center text-slate-900 mb-18">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 text-center text-slate-900">
         <h1
           ref={titleRef}
           className="hero-title text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight whitespace-pre-line"
