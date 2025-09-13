@@ -1,23 +1,23 @@
 import * as React from "react"
 import { BRAND_NAME } from "../constants"
 import { Button } from "../components/ui"
-import { motion } from "framer-motion"
 import Hero from '../components/sections/Hero'
 import shortVideo from '../assets/short.mp4'
 import Magnetic from '../components/ui/Magnetic'
+import videos from "../assets/videos/Hidden entrance _ 2D animated short (30 seconds Version) - ARWAKE (720p, h264).mp4"
+import HoverImage from "../components/animations/HoverImage"
+import PortfolioVideo from "../components/animations/videoOnMouseEnterLeave"
+import AnimatedFadeIn from "../components/animations/AnimatedFadeIn"   // 👈 new import
+import { Layers, Shield, Brain, Globe } from "lucide-react"
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0 },
-}
 
 const Home: React.FC = () => {
   return (
     <div className="bg-white text-slate-900">
       {/* ================= Hero Section ================= */}
       <Hero
-        title={"From concept to launch, TechSign builds solutions that stand out and scale."}
-        subtitle= "Scalable, secure, and smart solutions for ambitious brands"
+        title={`From concept to launch, ${BRAND_NAME} builds solutions that stand out and scale.`}
+        subtitle="Scalable, secure, and smart solutions for ambitious brands"
         ctaLabel="Get in touch"
         ctaHref="/contact"
         videoSrc={shortVideo}
@@ -60,22 +60,16 @@ const Home: React.FC = () => {
                 desc: "Beautiful, human-centered design that engages and converts users.",
               },
             ].map((service, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: idx * 0.2 }}
-                className="flex flex-col md:flex-row md:items-start md:space-x-10"
-              >
-                <div className="md:w-1/3 text-3xl font-semibold">
-                  {service.title}
+              <AnimatedFadeIn key={idx} delay={idx * 0.2}>
+                <div className="flex flex-col md:flex-row md:items-start md:space-x-10">
+                  <div className="md:w-1/3 text-3xl font-semibold">
+                    {service.title}
+                  </div>
+                  <div className="md:w-2/3 text-lg text-slate-600">
+                    {service.desc}
+                  </div>
                 </div>
-                <div className="md:w-2/3 text-lg text-slate-600">
-                  {service.desc}
-                </div>
-              </motion.div>
+              </AnimatedFadeIn>
             ))}
           </div>
         </div>
@@ -97,29 +91,48 @@ const Home: React.FC = () => {
             Selected Work
           </h2>
 
-          <div className="space-y-20">
-            {[1, 2, 3].map((item) => (
-              <motion.div
-                key={item}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.8 }}
-                className="relative group overflow-hidden rounded-xl shadow-lg"
-              >
-                <img
-                  src={`/images/placeholder-${item}.svg`}
-                  alt={`Placeholder project ${item}`}
-                  className="w-full h-[400px] object-cover transform group-hover:scale-105 transition duration-700"
-                />
-                <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                  <h3 className="text-2xl font-bold text-white">
-                    Project {item}
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
+          <div className="space-y-24">
+            {[
+              {
+                src: videos,
+                thumbnail: "/images/thumb-1.jpg",
+                title: "Hidden Entrance",
+                desc: "A 2D animated short showcasing a creative entrance sequence.",
+              },
+              {
+                src: videos,
+                thumbnail: "/images/thumb-1.jpg",
+                title: "Creative Motion",
+                desc: "Exploring motion graphics and smooth animations.",
+              },
+              {
+                src: videos,
+                thumbnail: "/images/thumb-1.jpg",
+                title: "Interactive Animation",
+                desc: "Engaging animation with interactive elements.",
+              },
+            ].map((item, idx) => {
+              const isEven = idx % 2 === 0
+              return (
+                <AnimatedFadeIn key={idx} delay={idx * 0.2}>
+                  <div
+                    className={`flex flex-col md:flex-row items-center md:items-start md:space-x-10 ${!isEven ? "md:flex-row-reverse md:space-x-reverse" : ""
+                      }`}
+                  >
+                    {/* Video */}
+                    <div className="md:w-1/2">
+                      <PortfolioVideo src={item.src} thumbnail={item.thumbnail} />
+                    </div>
+
+                    {/* Detail */}
+                    <div className="ml-10">
+                      <h3 className="text-3xl font-bold mb-4">{item.title}</h3>
+                      <p className="text-lg text-slate-600">{item.desc}</p>
+                    </div>
+                  </div>
+                </AnimatedFadeIn>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -143,42 +156,37 @@ const Home: React.FC = () => {
           <div className="grid gap-16 md:grid-cols-4">
             {[
               {
-                icon: "",
+                icon: <Layers className="w-12 h-12 mx-auto text-slate-900" />,
                 title: "Scalable",
                 desc: "Solutions designed to grow with your business.",
               },
               {
-                icon: "",
+                icon: <Shield className="w-12 h-12 mx-auto text-slate-900" />,
                 title: "Secure",
                 desc: "Robust architecture with enterprise-level security.",
               },
               {
-                icon: "",
+                icon: <Brain className="w-12 h-12 mx-auto text-slate-900" />,
                 title: "Intelligent",
                 desc: "AI at the core of smarter digital products.",
               },
               {
-                icon: "",
+                icon: <Globe className="w-12 h-12 mx-auto text-slate-900" />,
                 title: "Global",
                 desc: "Working with clients across the world.",
               },
             ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.6, delay: idx * 0.2 }}
-                className="space-y-4"
-              >
-                <div className="text-5xl">{item.icon}</div>
-                <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="text-slate-600">{item.desc}</p>
-              </motion.div>
+              <AnimatedFadeIn key={idx} delay={idx * 0.2} amount={0.2}>
+                <div className="space-y-4">
+                  <div className="flex justify-center">{item.icon}</div>
+                  <h3 className="text-xl font-semibold">{item.title}</h3>
+                  <p className="text-slate-600">{item.desc}</p>
+                </div>
+              </AnimatedFadeIn>
             ))}
           </div>
         </div>
+
       </section>
 
       {/* ================= Final CTA Section ================= */}

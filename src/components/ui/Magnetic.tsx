@@ -51,7 +51,7 @@ const Magnetic: React.FC<MagneticProps> = ({
     child.style.transform = `translate3d(${s.x.toFixed(2)}px, ${s.y.toFixed(2)}px, 0)`
 
     // continue until close to 0 when not hovering
-    const moving = Math.abs(s.x) + Math.abs(s.y) > 0.2 || s.hovering
+    const moving = Math.abs(s.x) + Math.abs(s.y) > 0.1 || s.hovering
     if (moving) anim.current = requestAnimationFrame(loop)
     else {
       child.style.transform = 'translate3d(0,0,0)'

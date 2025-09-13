@@ -29,8 +29,8 @@ h1, h2, h3, .logo {
   position: fixed;
   top: 0;
   left: 0;
-  width: 20px;
-  height: 20px;
+  width: 10px;
+  height: 10px;
   border-radius: 9999px;
   pointer-events: none;
   z-index: 50;
