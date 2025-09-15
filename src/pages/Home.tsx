@@ -18,7 +18,6 @@ const Home: React.FC = () => {
       <Hero
         title={`From concept to launch, ${BRAND_NAME} builds solutions that stand out and scale.`}
         subtitle="Scalable, secure, and smart solutions for ambitious brands"
-        ctaLabel="Get in touch"
         ctaHref="/contact"
         videoSrc={shortVideo}
         poster="/images/hero-poster.svg"

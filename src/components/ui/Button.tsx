@@ -40,7 +40,7 @@ export interface ButtonProps
   variant?: ButtonVariant
   size?: ButtonSize
   fullWidth?: boolean
-  onClick?: () => void
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -63,7 +63,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       // Press Enter or Space to trigger onClick for accessibility when focused
       if ((e.key === 'Enter' || e.key === ' ') && onClick) {
         e.preventDefault()
-        onClick()
+        onClick(e as any)
       }
     }
 
@@ -73,7 +73,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         aria-disabled={disabled}
         disabled={disabled}
-        onClick={disabled ? undefined : onClick}
+        onClick={disabled ? undefined : (e) => onClick?.(e)}
         onKeyDown={handleKeyDown}
         className={cn(buttonVariants({ variant, size, fullWidth }), className)}
         {...props}
