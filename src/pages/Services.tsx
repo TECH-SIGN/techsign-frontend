@@ -4,15 +4,10 @@ import { ServicesGrid } from "../components/sections";
 import { Button } from "../components/ui";
 import { Section } from "../components/layout";
 import { useNavigate, useLocation } from "react-router-dom";
-import PageTransition, { RectLike } from "../components/animations/pageTransition";
 
 const Services: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  // originRect aayega Navbar ya Button se navigate karte waqt
-  // const fromState = (location.state as any)?.originRect as RectLike | undefined;
-  // const originRect = fromState ?? null;
 
   const handleContactClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const el = e.currentTarget;
@@ -22,10 +17,9 @@ const Services: React.FC = () => {
   };
 
   return (
-    // <PageTransition originRect={originRect}>
-      <div className="space-y-12">
+      <div>
         <Section py="normal">
-          <div className="text-center space-y-4">
+          <div className="text-center">
             <h1 className="text-3xl font-bold tracking-tight">Our Services</h1>
             <p className="text-slate-600">Explore what TechSign can do for you</p>
           </div>
@@ -41,8 +35,7 @@ const Services: React.FC = () => {
           </div>
         </Section>
       </div>
-    // </PageTransition>
-  );
+        );
 };
 
 export default Services;
