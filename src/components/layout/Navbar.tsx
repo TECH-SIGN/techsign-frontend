@@ -4,7 +4,8 @@ import type { NavLink } from "../../types";
 import Container from "./Spacing/Container";
 import { useNavigate } from "react-router-dom";
 import { useScrollDirection } from "../../hooks/usScrollDirection";
-import TextGrow from "../animations/TextGrow";
+import LogoAnimator from "../animations/LogoAnimator";
+import NavItemAnimator from "../animations/NavItemAnimater";
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   logo?: string | React.ReactNode;
@@ -99,11 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   className="px-4 md:px-18 font-semibold text-slate-900 text-[clamp(1rem,2vw+0.5rem,1.5rem)]"
                   data-cursor="hover"
                 >
-                  <TextGrow>
-                    <span>
-                  {logo}
-                  </span>
-                  </TextGrow>
+                  <LogoAnimator text={logo} />
                 </a>
               ) : (
                 <a
@@ -121,7 +118,7 @@ const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop links */}
           <div className="hidden md:flex md:items-center md:gap-6 pr-18">
             <ul className="flex items-center gap-14">
-              {links.map((item) => (
+              {links.map((item, index) => (
                 <li key={item.href} className="overflow-hidden">
                   <a
                     href={item.href}
@@ -137,12 +134,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     className="group relative block overflow-hidden text-lg font-medium text-slate-950"
                     data-cursor="hover"
                   >
-                    <span className="block translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:-translate-y-full">
-                      {item.label}
-                    </span>
-                    <span className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-y-0">
-                      {item.label}
-                    </span>
+                    <NavItemAnimator text={item.label} delay={index * 0.2} />
                   </a>
                 </li>
               ))}
