@@ -5,28 +5,31 @@ import Hero from '../components/sections/Hero'
 import shortVideo from '../assets/short.mp4'
 import Magnetic from '../components/ui/Magnetic'
 import videos from "../assets/videos/Hidden entrance _ 2D animated short (30 seconds Version) - ARWAKE (720p, h264).mp4"
-import HoverImage from "../components/animations/HoverImage"
 import PortfolioVideo from "../components/animations/videoOnMouseEnterLeave"
 import AnimatedFadeIn from "../components/animations/AnimatedFadeIn"   // 👈 new import
 import { Layers, Shield, Brain, Globe } from "lucide-react"
-
+import Container from "../components/layout/Spacing/Container"
 
 const Home: React.FC = () => {
   return (
     <div className="bg-white text-slate-900">
       {/* ================= Hero Section ================= */}
-      <Hero
-        title={`From concept to launch, ${BRAND_NAME} builds solutions that stand out and scale.`}
-        subtitle="Scalable, secure, and smart solutions for ambitious brands"
-        ctaHref="/contact"
-        videoSrc={shortVideo}
-        poster="/images/hero-poster.svg"
-        overlay
-      />
+      <section>
+        <Container>
+          <Hero
+            title={`From concept to launch, ${BRAND_NAME} builds solutions that stand out and scale.`}
+            subtitle="Scalable, secure, and smart solutions for ambitious brands"
+            ctaHref="/contact"
+            videoSrc={shortVideo}
+            poster="/images/hero-poster.svg"
+            overlay
+          />
+        </Container>
+      </section>
 
       {/* ================= Services Section ================= */}
       <section
-        className="py-28"
+        className="py-28 max-w-7xl mx-auto"
         role="region"
         aria-labelledby="services-heading"
         data-animate="fade-up"
@@ -76,12 +79,13 @@ const Home: React.FC = () => {
 
       {/* ================= Portfolio Section ================= */}
       <section
-        className="py-28"
+        className="py-28 bg-slate-900 text-white rounded-[75px]"
         role="region"
         aria-labelledby="portfolio-heading"
         data-animate="fade-up"
       >
-        <div className="mx-auto max-w-6xl px-4 text-center">
+
+        <Container className="text-center" >
           <h2
             id="portfolio-heading"
             className="text-5xl font-bold font-montserrat mb-26"
@@ -115,25 +119,29 @@ const Home: React.FC = () => {
               return (
                 <AnimatedFadeIn key={idx} delay={idx * 0.2}>
                   <div
-                    className={`flex flex-col md:flex-row items-center md:items-start md:space-x-10 ${!isEven ? "md:flex-row-reverse md:space-x-reverse" : ""
+                    className={`flex flex-col md:flex-row items-center  md:space-x-10 ${!isEven ? "md:flex-row-reverse md:space-x-reverse" : ""
                       }`}
                   >
                     {/* Video */}
-                    <div className="aspect-video">
+                    <div className="aspect-video w-full md:w-1/2">
                       <PortfolioVideo src={item.src} thumbnail={item.thumbnail} />
                     </div>
 
                     {/* Detail */}
-                    <div className="w-full md:w-1/2 mt-6 md:mt-0 md:ml-10">
-                      <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-center">{item.title}</h3>
-                      <p className="text-lg md:text-lg lg:text-xl text-slate-800 text-center md:text-leftxt-lg">{item.desc}</p>
+                    <div className="w-full md:w-1/2 flex flex-col justify-center items-center text-center md:text-left px-5">
+                      <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
+                        {item.title}
+                      </h3>
+                      <p className="text-lg md:text-lg lg:text-xl text-white text-center md:text-left md:items-start">
+                        {item.desc}
+                      </p>
                     </div>
                   </div>
                 </AnimatedFadeIn>
               )
             })}
           </div>
-        </div>
+        </Container>
       </section>
 
       {/* ================= Why Choose Us Section ================= */}
@@ -189,13 +197,14 @@ const Home: React.FC = () => {
       </section>
 
       {/* ================= Final CTA Section ================= */}
+      <Container className="my-20">
       <section
-        className="py-28 bg-slate-900 text-white text-center"
+        className="py-28 bg-slate-900 text-white text-center rounded-[40px]"
         role="region"
         aria-labelledby="cta-heading"
         data-animate="fade-up"
       >
-        <div className="mx-auto max-w-4xl space-y-8 px-4">
+        <section className="mx-auto max-w-4xl space-y-8">  
           <h2
             id="cta-heading"
             className="text-5xl font-bold font-montserrat"
@@ -208,12 +217,13 @@ const Home: React.FC = () => {
             make a difference.
           </p>
           <Magnetic>
-            <Button data-cursor="hover" className="px-10 py-4 text-lg font-bold bg-white text-slate-900 hover:bg-slate-200">
+            <Button data-cursor="hover" className="px-10 py-4 text-lg font-bold bg-white text-slate-900 hover:bg-black hover:text-white">
               Get in Touch
             </Button>
           </Magnetic>
-        </div>
+        </section>
       </section>
+      </Container>
     </div>
   )
 }

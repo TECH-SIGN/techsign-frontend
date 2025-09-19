@@ -9,9 +9,9 @@ const Container: React.FC<ContainerProps> = ({ fluid = false, className, ...prop
   return (
     <div
       className={cn(
-        // horizontal paddings always applied; max-w only when boxed
-        'mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12',
-        !fluid && 'max-w-7xl xl:max-w-8xl 2xl:max-w-[1600px]',
+        fluid
+          ? "w-full" // full edge-to-edge
+          : "mx-auto px-6 sm:px-8 lg:px-12 max-w-[1440px]", // centered with max width
         className
       )}
       {...props}

@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react"
 
 export function useScrollDirection() {
   const [hidden, setHidden] = useState(false)
-  const lastScroll = useRef(0)
+  const lastScroll = useRef(0)  
 
   useEffect(() => {
     const lenis: any = (window as any).lenis

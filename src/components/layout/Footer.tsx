@@ -30,7 +30,7 @@ export const Footer: React.FC<FooterProps> = ({ links = [], brand = "TechSign", 
   };
 
   return (
-    <footer className={cn("border-t border-slate-200 bg-white/70 backdrop-blur", className)} aria-label="Site Footer" {...props}>
+    <footer className={cn("border-t border-slate-200 px-15 bg-white/70 backdrop-blur", className)} aria-label="Site Footer" {...props}>
       <Container fluid className="px-0 py-6">
         <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
           <p className="text-sm text-gray-600">© {year} {brand}. All rights reserved.</p>

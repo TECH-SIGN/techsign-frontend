@@ -26,7 +26,7 @@ export const Layout: React.FC<LayoutProps> = ({
   ...props
 }) => {
   return (
-    <div className={cn('max-h-screen w-full bg-white/100 text-slate-950 flex flex-col', className)} {...props}>
+    <div className={cn('min-h-screen w-full bg-white/100 text-slate-950 flex flex-col', className)} {...props}>
       <Navbar
         logo={navbar?.logo ?? LOGO_TEXT}
         logoHref={navbar?.logoHref}
@@ -35,7 +35,7 @@ export const Layout: React.FC<LayoutProps> = ({
         sticky={navbar?.sticky}
         className={navbar?.className}
       />
-      <main className={cn('mx-auto w-full max-w-7xl flex-1 py-10 bg-white/100', containerClassName)}>
+      <main className={cn('mx-auto w-full flex-1 py-10 bg-white/100', containerClassName)}>
         {children ? children : <Outlet />}
       </main>
       <Footer

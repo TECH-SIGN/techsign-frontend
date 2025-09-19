@@ -80,8 +80,7 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 z-50 bg-white/100 transition-transform duration-300",
-        sticky && "sticky top-0 z-50",
+        "fixed top-0 left-0 z-50 w-full bg-white transition-transform duration-100",
         hidden ? "-translate-y-full" : "translate-y-0",
         className
       )}

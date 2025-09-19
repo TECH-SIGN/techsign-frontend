@@ -9,9 +9,9 @@ export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const spacingMap: Record<NonNullable<SectionProps['py']>, string> = {
-  tight: 'py-8 sm:py-10 lg:py-12 xl:py-14 2xl:py-16',
-  normal: 'py-8 sm:py-12 lg:py-16 xl:py-20 2xl:py-24',
-  relaxed: 'py-12 sm:py-16 lg:py-20 xl:py-24 2xl:py-32',
+  tight: 'py-8',
+  normal: 'py-8',
+  relaxed: 'py-12',
 }
 
 const Section: React.FC<SectionProps> = ({

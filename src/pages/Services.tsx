@@ -3,11 +3,10 @@ import * as React from "react";
 import { ServicesGrid } from "../components/sections";
 import { Button } from "../components/ui";
 import { Section } from "../components/layout";
-import { useNavigate, useLocation } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
+  
 const Services: React.FC = () => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleContactClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const el = e.currentTarget;
@@ -29,11 +28,11 @@ const Services: React.FC = () => {
           <ServicesGrid />
         </Section>
 
-        <Section py="normal">
+        {/* <Section py="normal">
           <div className="text-center">
             <Button onClick={handleContactClick}>Contact Us</Button>
           </div>
-        </Section>
+        </Section> */}
       </div>
         );
 };
