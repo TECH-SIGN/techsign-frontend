@@ -4,6 +4,7 @@ import type { NavLink } from "../../types";
 import Container from "./Spacing/Container";
 import { useNavigate } from "react-router-dom";
 import { useScrollDirection } from "../../hooks/usScrollDirection";
+import TextGrow from "../animations/TextGrow";
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   logo?: string | React.ReactNode;
@@ -80,7 +81,7 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 z-50 w-full bg-white transition-transform duration-100",
+        "fixed top-0 left-0 z-50 w-full bg-white transition-transform duration-200",
         hidden ? "-translate-y-full" : "translate-y-0",
         className
       )}
@@ -98,7 +99,11 @@ const Navbar: React.FC<NavbarProps> = ({
                   className="px-4 md:px-18 font-semibold text-slate-900 text-[clamp(1rem,2vw+0.5rem,1.5rem)]"
                   data-cursor="hover"
                 >
+                  <TextGrow>
+                    <span>
                   {logo}
+                  </span>
+                  </TextGrow>
                 </a>
               ) : (
                 <a
