@@ -5,7 +5,6 @@ import { cn } from '../../../lib/cn'
 export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   fluid?: boolean
   py?: 'tight' | 'normal' | 'relaxed'
-  
 }
 
 const spacingMap: Record<NonNullable<SectionProps['py']>, string> = {

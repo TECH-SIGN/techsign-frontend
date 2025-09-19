@@ -1,31 +1,25 @@
-// src/hooks/useScrollDirection.ts
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 
 export function useScrollDirection() {
   const [hidden, setHidden] = useState(false)
-  const lastScroll = useRef(0)  
 
   useEffect(() => {
-    const lenis: any = (window as any).lenis
-    if (!lenis) return
+    let lastScroll = window.scrollY
 
-    const onScroll = ({ scroll }: { scroll: number; direction: number }) => {
-      if (scroll > lastScroll.current) {
-        // Scroll Down → hide navbar
-        setHidden(true)
+    const onScroll = () => {
+      const current = window.scrollY
+      if (current > lastScroll && current > 50) {
+        setHidden(true)  // down
       } else {
-        // Scroll Up → show navbar
-        setHidden(false)
+        setHidden(false) // up
       }
-      lastScroll.current = scroll
+      lastScroll = current
     }
 
-    lenis.on("scroll", onScroll)
-
-    return () => {
-      lenis.off("scroll", onScroll)
-    }
+    window.addEventListener("scroll", onScroll)
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
   return hidden
 }
+
