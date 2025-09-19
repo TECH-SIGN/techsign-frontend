@@ -1,75 +1,87 @@
-import * as React from 'react'
-import { cn } from '../../lib/cn'
-import type { NavLink } from '../../types'
-import { Link } from 'react-router-dom'
-import Container from './Spacing/Container'
+import * as React from "react";
+import { cn } from "../../lib/cn";
+import type { NavLink } from "../../types";
+import Container from "./Spacing/Container";
+import { useNavigate } from "react-router-dom";
+import { useScrollDirection } from "../../hooks/usScrollDirection";
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
-  logo?: string | React.ReactNode
-  logoHref?: string
-  links: NavLink[]
-  rightActions?: React.ReactNode
-  sticky?: boolean
+  logo?: string | React.ReactNode;
+  logoHref?: string;
+  links: NavLink[];
+  rightActions?: React.ReactNode;
+  sticky?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({
+const Navbar: React.FC<NavbarProps> = ({
   logo,
-  logoHref = '/',
+  logoHref = "/",
   links,
   rightActions,
   sticky = true,
   className,
   ...props
 }) => {
-  const [open, setOpen] = React.useState(false)
-  const [hidden, setHidden] = React.useState(false)
-  const menuRef = React.useRef<HTMLDivElement>(null)
-  const lastScrollY = React.useRef(0)
+  const [open, setOpen] = React.useState(false);
+  const menuRef = React.useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
+  // ✅ scroll direction hook
+  const hidden = useScrollDirection();
 
-      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-        // Scroll down → hide navbar
-        setHidden(true)
-      } else {
-        // Scroll up → show navbar
-        setHidden(false)
-      }
-
-      lastScrollY.current = currentScrollY
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
+  // Escape press => close menu
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false)
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [])
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
+  // Outside click => close menu
   React.useEffect(() => {
-    function onClickOutside(e: MouseEvent) {
-      if (!menuRef.current) return
-      if (open && !menuRef.current.contains(e.target as Node)) {
-        setOpen(false)
-      }
+    const onClickOutside = (e: MouseEvent) => {
+      if (!menuRef.current) return;
+      const target = e.target as Node;
+
+    // Agar click menuRef ke andar ya button ke andar hua → ignore karo
+    const button = document.querySelector("#menu-toggle-btn");
+    if (
+      open &&
+      !menuRef.current.contains(target) &&
+      !(button && button.contains(target))
+    ) {
+      setOpen(false);
     }
-    document.addEventListener('mousedown', onClickOutside)
-    return () => document.removeEventListener('mousedown', onClickOutside)
-  }, [open])
+  };
+
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, [open]);
+
+  // Animation navigation (Services & Contact only)
+  const navigateWithRect = (href: string, el: Element | null) => {
+    if (!el) {
+      navigate(href);
+      setOpen(false);
+      return;
+    }
+    const r = el.getBoundingClientRect();
+    const originRect = {
+      left: r.left,
+      top: r.top,
+      width: r.width,
+      height: r.height,
+    };
+    navigate(href, { state: { originRect } });
+    setOpen(false);
+  };
 
   return (
     <nav
       className={cn(
-        'w-full bg-white/100 transition-transform duration-500',
-        sticky && 'sticky top-0 z-50',
-        hidden ? '-translate-y-full' : 'translate-y-0',
+        "fixed top-0 left-0 z-50 w-full bg-white transition-transform duration-100",
+        hidden ? "-translate-y-full" : "translate-y-0",
         className
       )}
       aria-label="Main Navigation"
@@ -77,28 +89,46 @@ export const Navbar: React.FC<NavbarProps> = ({
     >
       <Container fluid className="px-0">
         <div className="flex h-17 items-center justify-between">
-          {/* Left: Logo */}
-          <div className="flex flex-1 items-center pl-20">
+          {/* Logo */}
+          <div className="flex flex-1 items-center h-full">
             {logo ? (
-              typeof logo === 'string' ? (
-                <Link to={logoHref ?? '/'} className="text-2xl font-semibold text-slate-900" data-cursor="hover">
+              typeof logo === "string" ? (
+                <a
+                  href={logoHref ?? "/"}
+                  className="px-4 md:px-18 font-semibold text-slate-900 text-[clamp(1rem,2vw+0.5rem,1.5rem)]"
+                  data-cursor="hover"
+                >
                   {logo}
-                </Link>
+                </a>
               ) : (
-                <Link to={logoHref ?? '/'} className="inline-flex items-center" aria-label="Home" data-cursor="hover">
+                <a
+                  href={logoHref ?? "/"}
+                  className="inline-flex items-center"
+                  aria-label="Home"
+                  data-cursor="hover"
+                >
                   {logo}
-                </Link>
+                </a>
               )
             ) : null}
           </div>
 
           {/* Desktop links */}
-          <div className="hidden md:flex md:items-center md:gap-6 pr-20">
+          <div className="hidden md:flex md:items-center md:gap-6 pr-18">
             <ul className="flex items-center gap-14">
               {links.map((item) => (
                 <li key={item.href} className="overflow-hidden">
-                  <Link
-                    to={item.href}
+                  <a
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (item.href === "/services" || item.href === "/contact") {
+                        navigateWithRect(item.href, e.currentTarget);
+                      } else {
+                        navigate(item.href);
+                        setOpen(false);
+                      }
+                    }}
                     className="group relative block overflow-hidden text-lg font-medium text-slate-950"
                     data-cursor="hover"
                   >
@@ -108,73 +138,94 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-y-0">
                       {item.label}
                     </span>
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
-            {rightActions ? <div className="ml-4 flex items-center gap-2" data-cursor="hover">{rightActions}</div> : null}
+            {rightActions ? (
+              <div className="ml-4 flex items-center gap-2">{rightActions}</div>
+            ) : null}
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
+              id="menu-toggle-btn"
               type="button"
-              className="inline-flex items-center justify-center rounded-md p-2 text-slate-900 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
+              className="inline-flex items-center justify-center rounded-md p-2 text-slate-900 hover:bg-slate-100"
               aria-controls="mobile-menu"
               aria-expanded={open}
-              aria-label={open ? 'Close menu' : 'Open menu'}
-              onClick={() => setOpen((o) => !o)}
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen(!open)}
             >
-              <svg
-                className={cn('h-6 w-6', open && 'hidden')}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-              <svg
-                className={cn('h-6 w-6', !open && 'hidden')}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              {open ? (
+                // Close icon
+                <svg
+                  className="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                // Hamburger icon
+                <svg
+                  className="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              )}
             </button>
           </div>
         </div>
-      </Container>
 
-      {/* Mobile panel */}
-      <div
-        id="mobile-menu"
-        ref={menuRef}
-        className={cn('md:hidden border-t border-slate-200/80 bg-white', open ? 'block' : 'hidden')}
-      >
-        <div className="space-y-1 px-4 py-3 sm:px-6">
-          {links.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              onClick={() => setOpen(false)}
-              className="block rounded px-3 py-2 text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900"
-              data-cursor="hover"
+        {/* Mobile menu */}
+        {open && (
+          <div
+            ref={menuRef}
+            id="mobile-menu"
+            className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg"
+          >
+            <a
+              href="#"
+              className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200"
             >
-              {item.label}
-            </Link>
-          ))}
-          {rightActions ? <div className="pt-2">{rightActions}</div> : null}
-        </div>
-      </div>
+              Home
+
+            </a>
+            <a
+              href="#"
+              className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200"
+            >
+              Services
+            </a>
+            <a
+              href="#"
+              className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200"
+            >
+              Contact
+            </a>
+          </div>
+        )}
+      </Container>
     </nav>
   )
-}
+};
 
-export default Navbar
+export default Navbar;

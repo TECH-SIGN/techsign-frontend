@@ -1,6 +1,7 @@
 import * as React from "react"
 import { cn } from "../../lib/cn"
 import MyComponent from "../animations/splitTextAnimation"
+import Container from "../layout/Spacing/Container"
 
 export interface HeroProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string
@@ -25,7 +26,7 @@ const Hero: React.FC<HeroProps> = ({
 }) => {
   return (
     <section className={cn("relative bg-white", className)} {...props}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 text-center text-slate-900 mb-18">
+      <Container className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12 text-center text-slate-900 mb-18">
         <MyComponent title={title} subtitle={subtitle} />
 
         {/* ✅ Only render CTA if both are provided */}
@@ -37,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({
             {ctaLabel}
           </a>
         )}
-      </div>
+      </Container>
 
       {videoSrc ? (
         <div className="relative h-[85vh] w-full rounded-[40px] overflow-hidden">
