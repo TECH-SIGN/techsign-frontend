@@ -123,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({
                   <a
                     href={item.href}
                     onClick={(e) => {
-                      e.preventDefault();
+                      e.preventDefault();   
                       if (item.href === "/services" || item.href === "/contact") {
                         navigateWithRect(item.href, e.currentTarget);
                       } else {
