@@ -79,7 +79,7 @@ const Home: React.FC = () => {
 
       {/* ================= Portfolio Section ================= */}
       <section
-        className="py-28 bg-slate-900 text-white rounded-[75px]"
+        className="py-28 bg-black/93 text-white rounded-[75px]"
         role="region"
         aria-labelledby="portfolio-heading"
         data-animate="fade-up"
@@ -199,7 +199,7 @@ const Home: React.FC = () => {
       {/* ================= Final CTA Section ================= */}
       <Container className="my-20">
       <section
-        className="py-28 bg-slate-900 text-white text-center rounded-[40px]"
+        className="py-28 bg-black/93 text-white text-center rounded-[40px]"
         role="region"
         aria-labelledby="cta-heading"
         data-animate="fade-up"
