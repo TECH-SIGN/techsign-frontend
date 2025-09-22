@@ -37,8 +37,8 @@ export const Footer: React.FC<FooterProps> = ({ links = [], brand = "TechSign", 
 
           {links.length > 0 && (
             <ul className="flex items-center gap-4">
-              {links.map((l) => (
-                <li key={l.href}>
+              {links.map((l, index) => (
+                <li key={`${l.href}-${index}`}>
                   <a
                     href={l.href}
                     onClick={(e) => {

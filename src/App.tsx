@@ -5,7 +5,7 @@ import ScrollProvider from './providers/ScrollProvider' // ✅ Import your scrol
 function App() {
   return (
     <BrowserRouter>
-      <ScrollProvider> {/* ✅ Scroll logic now inside router context */}
+      <ScrollProvider smooth animations> {/* ✅ Scroll logic now inside router context */}
         <AppRoutes />
       </ScrollProvider>
     </BrowserRouter>
