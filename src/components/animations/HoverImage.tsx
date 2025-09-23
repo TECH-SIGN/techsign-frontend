@@ -1,11 +1,7 @@
 import * as React from "react"
 import { motion } from "framer-motion"
+import { HoverImageProps } from "../../types/animations"
 
-interface HoverImageProps {
-  src: string
-  alt: string
-  className?: string
-}
 
 const HoverImage: React.FC<HoverImageProps> = ({ src, alt, className }) => {
   return (

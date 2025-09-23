@@ -1,20 +1,12 @@
 // src/components/layout/Navbar.tsx
 import * as React from "react"
 import { cn } from "../../lib/cn"
-import type { NavLink } from "../../types"
+import type { NavbarProps, NavLink } from "../../types"
 import Container from "./Spacing/Container"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useScrollDirection } from "../../hooks/usScrollDirection"
 import LogoAnimator from "../animations/LogoAnimator"
 import NavItemAnimator from "../animations/NavItemAnimater"
-
-export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
-  logo?: string | React.ReactNode
-  logoHref?: string
-  links: NavLink[]
-  rightActions?: React.ReactNode
-  sticky?: boolean
-}
 
 const Navbar: React.FC<NavbarProps> = ({
   logo,
@@ -85,9 +77,19 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="flex flex-1 items-center h-full">
             {logo ? (
               typeof logo === "string" ? (
-                <a href={logoHref ?? "/"} className="px-4 md:px-18 font-semibold text-slate-900 text-[clamp(1rem,2vw+0.5rem,1.5rem)]" data-cursor="hover">
+                <Link
+                  to={logoHref ?? "/"}
+                  className="px-4 md:px-18 font-semibold text-slate-900 text-[clamp(1rem,2vw+0.5rem,1.5rem)]"
+                  data-cursor="hover"
+                  onClick={(e) => {
+                    if (window.location.pathname === (logoHref ?? "/")) {
+                      e.preventDefault()
+                      window.location.reload() // force reload if already on same path
+                    }
+                  }}
+                >
                   <LogoAnimator text={logo} />
-                </a>
+                </Link>
               ) : (
                 <a href={logoHref ?? "/"} className="inline-flex items-center" aria-label="Home" data-cursor="hover">
                   {logo}

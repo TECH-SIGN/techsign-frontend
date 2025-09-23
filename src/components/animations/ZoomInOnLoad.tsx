@@ -1,13 +1,7 @@
 import { useEffect, useRef, ReactNode } from "react";
 import gsap from "gsap";
+import { ZoomInOnLoadProps } from "../../types/animations";
 
-interface ZoomInOnLoadProps {
-  children: ReactNode;
-  className?: string;
-  fromScale?: number;  // start scale
-  duration?: number;
-  ease?: string;
-}
 
 const ZoomInOnLoad: React.FC<ZoomInOnLoadProps> = ({
   children,

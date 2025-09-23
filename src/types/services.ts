@@ -16,3 +16,11 @@ export interface ServiceCardProps extends React.HTMLAttributes<HTMLDivElement> {
   ctaLabel: string
   ctaHref: string
 }
+
+export type SectionSpacing = 'tight' | 'normal' | 'relaxed'
+
+export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
+  fluid?: boolean
+  py?: SectionSpacing
+}
+

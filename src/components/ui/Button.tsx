@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '../../lib/cn'
-import type { ButtonVariant, ButtonSize } from '../../types'
+import { useNavigate } from 'react-router-dom'
+import gsap from 'gsap'
+import { ButtonProps } from '../../types'
 
 const buttonVariants = cva(
-  // base styles
   'inline-flex items-center justify-center whitespace-nowrap rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60 shadow-sm',
   {
     variants: {
@@ -34,15 +35,6 @@ const buttonVariants = cva(
   }
 )
 
-export interface ButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'>,
-    VariantProps<typeof buttonVariants> {
-  variant?: ButtonVariant
-  size?: ButtonSize
-  fullWidth?: boolean
-    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
-}
-
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
@@ -53,17 +45,47 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       type = 'button',
       disabled,
       onClick,
+      transitionTo,
       children,
       ...props
     },
     ref
   ) => {
+    const navigate = useNavigate()
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (disabled) return
+      onClick?.(e)
+
+      if (transitionTo) {
+        e.preventDefault()
+        const overlay = document.querySelector<HTMLDivElement>('.page-transition-overlay')
+        const dim = document.querySelector<HTMLDivElement>('.page-transition-dim')
+
+        if (overlay && dim) {
+          gsap.set(overlay, { yPercent: 100, opacity: 1 })
+          gsap.set(dim, { opacity: 0 })
+
+          const tl = gsap.timeline({
+            onComplete: () => {
+              navigate(transitionTo)
+            },
+          })
+
+          tl.to(dim, { opacity: 0.5, duration: 0.3, ease: 'power2.out' })
+            .to(overlay, { yPercent: 0, duration: 0.6, ease: 'power4.inOut' })
+            .to([overlay, dim], { opacity: 0, duration: 0.5, ease: 'power4.inOut' })
+        } else {
+          navigate(transitionTo)
+        }
+      }
+    }
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
       if (disabled) return
-      // Press Enter or Space to trigger onClick for accessibility when focused
-      if ((e.key === 'Enter' || e.key === ' ') && onClick) {
+      if ((e.key === 'Enter' || e.key === ' ') && handleClick) {
         e.preventDefault()
-        onClick(e as any)
+        handleClick(e as any)
       }
     }
 
@@ -73,7 +95,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         aria-disabled={disabled}
         disabled={disabled}
-        onClick={disabled ? undefined : (e) => onClick?.(e)}
+        onClick={handleClick}
         onKeyDown={handleKeyDown}
         className={cn(buttonVariants({ variant, size, fullWidth }), className)}
         {...props}
@@ -83,6 +105,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     )
   }
 )
-Button.displayName = 'Button'
 
+Button.displayName = 'Button'
 export default Button

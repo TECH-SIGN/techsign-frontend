@@ -1,11 +1,7 @@
 import * as React from 'react'
 import Container from './Container'
 import { cn } from '../../../lib/cn'
-
-export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
-  fluid?: boolean
-  py?: 'tight' | 'normal' | 'relaxed'
-}
+import { SectionProps } from '../../../types'
 
 const spacingMap: Record<NonNullable<SectionProps['py']>, string> = {
   tight: 'py-8',

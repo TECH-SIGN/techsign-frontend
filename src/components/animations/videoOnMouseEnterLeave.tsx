@@ -1,10 +1,7 @@
 import React, { useRef, useState } from "react"
 import { motion } from "framer-motion"
+import { PortfolioVideoProps } from "../../types/animations"
 
-export interface PortfolioVideoProps {
-  src: string
-  thumbnail: string
-}
 
 const PortfolioVideo: React.FC<PortfolioVideoProps> = ({ src, thumbnail }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null)

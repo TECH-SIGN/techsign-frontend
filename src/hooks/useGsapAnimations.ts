@@ -1,6 +1,7 @@
 import { useLayoutEffect } from 'react'
+import { UseGsapAnimationsOptions } from '../types/Hooks';
 
-export function useGsapAnimations(enabled: boolean = true) {
+export function useGsapAnimations(enabled: UseGsapAnimationsOptions = true) {
   useLayoutEffect(() => {
     if (!enabled) return
 
@@ -94,7 +95,7 @@ export function useGsapAnimations(enabled: boolean = true) {
         })
       } catch (e) {
         if (import.meta?.env?.DEV) {
-          console.warn('[useGsapAnimations] gsap not installed. Run: npm i gsap')
+          console.warn('[useGsapAnimations] gsap not installed', e)
         }
       }
     })()

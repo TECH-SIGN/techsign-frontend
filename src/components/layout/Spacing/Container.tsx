@@ -1,9 +1,6 @@
 import * as React from 'react'
 import { cn } from '../../../lib/cn'
-
-export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
-  fluid?: boolean // fluid uses full width with paddings; boxed uses max-w constraint
-}
+import { ContainerProps } from '../../../types/container'
 
 const Container: React.FC<ContainerProps> = ({ fluid = false, className, ...props }) => {
   return (

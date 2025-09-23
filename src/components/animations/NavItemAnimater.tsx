@@ -1,11 +1,8 @@
 import { motion } from "framer-motion"
 import React from "react"
 import { useLocation } from "react-router-dom"
+import { NavItemAnimatorProps } from "../../types/animations"
 
-interface NavItemAnimatorProps {
-  text: string
-  delay?: number
-}
 
 const NavItemAnimator: React.FC<NavItemAnimatorProps> = ({ text, delay = 0 }) => {
     const location = useLocation()

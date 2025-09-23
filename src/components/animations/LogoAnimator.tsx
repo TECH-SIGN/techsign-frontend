@@ -3,12 +3,8 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
 import { useLocation } from "react-router-dom";
+import { LogoAnimatorProps } from "../../types/animations";
 
-interface LogoAnimatorProps {
-  text: string;
-  className?: string;
-  animate?: boolean; // animation enable/disable
-}
 
 const LogoAnimator: React.FC<LogoAnimatorProps> = ({ text, className, animate = true }) => {
   const logoRef = useRef<HTMLHeadingElement | null>(null);

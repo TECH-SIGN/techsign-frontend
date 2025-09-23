@@ -199,7 +199,7 @@ const Home: React.FC = () => {
       {/* ================= Final CTA Section ================= */}
       <Container className="my-20">
       <section
-        className="py-28 bg-black/93 text-white text-center rounded-[40px]"
+        className="py-28 bg-black/90 text-white text-center rounded-[40px]"
         role="region"
         aria-labelledby="cta-heading"
         data-animate="fade-up"
