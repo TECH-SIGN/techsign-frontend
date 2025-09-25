@@ -1,48 +1,56 @@
-import React, { useEffect, useRef } from "react"
-import gsap from "gsap"
-import SplitType from "split-type"
-import { useLocation } from "react-router-dom"
+// src/components/animations/LogoAnimator.tsx
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import SplitType from "split-type";
+import { useLocation } from "react-router-dom";
+import { LogoAnimatorProps } from "../../types/animations";
 
-interface LogoAnimatorProps {
-  text: string
-  className?: string
-}
 
-const LogoAnimator: React.FC<LogoAnimatorProps> = ({ text, className }) => {
-  const logoRef = useRef<HTMLHeadingElement | null>(null)
-  const location = useLocation()
+const LogoAnimator: React.FC<LogoAnimatorProps> = ({ text, className, animate = true }) => {
+  const logoRef = useRef<HTMLHeadingElement | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
-    if (!logoRef.current) return
+    if (!animate || !logoRef.current) return;
 
-    // split text into chars
-    const split = new SplitType(logoRef.current, { types: "chars" })
-    const chars = split.chars ?? []
+    let split: SplitType | null = null;
 
-    // reset (small + invisible)
-    gsap.set(chars, { scale: 0.5, opacity: 0 })
+    try {
+      split = new SplitType(logoRef.current, { types: "chars" });
+    } catch (e) {
+      console.warn("SplitType failed:", e);
+      return; // agar error aaya to animation skip karo
+    }
 
-    // animate zoom-out one by one
-    gsap.to(chars, {
-      key: location.pathname + text, // to re-trigger on route change 
+    const chars = split.chars ?? [];
+    if (!chars.length) return;
+
+    // reset chars
+    gsap.set(chars, { scale: 0.5, opacity: 0 });
+
+    // animate chars
+    const tl = gsap.timeline();
+    tl.to(chars, {
       scale: 1,
       opacity: 1,
       duration: 0.6,
       ease: "power4.out",
-      stagger: 0.1, // ek ek karke aayega
-    })
+      stagger: 0.1,
+    });
 
-    // cleanup SplitType
+    // cleanup
     return () => {
-      split.revert()
-    }
-  }, [location.pathname, text])
+      split?.revert();
+      tl.kill();
+    };
+  }, [location.pathname, text, animate]);
 
+  // simple fallback render agar animation fail ho jaye
   return (
-    <h1 ref={logoRef} className={`font-bold text-2xl ${className ?? ""}`}>
+    <h1 ref={logoRef} className={`font-bold text-2xl text-slate-900 ${className ?? ""}`}>
       {text}
     </h1>
-  )
-}
+  );
+};
 
-export default LogoAnimator
+export default LogoAnimator;

@@ -1,19 +1,12 @@
-import * as React from "react";
-import { cn } from "../../lib/cn";
-import type { NavLink } from "../../types";
-import Container from "./Spacing/Container";
-import { useNavigate } from "react-router-dom";
-import { useScrollDirection } from "../../hooks/usScrollDirection";
-import LogoAnimator from "../animations/LogoAnimator";
-import NavItemAnimator from "../animations/NavItemAnimater";
-
-export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
-  logo?: string | React.ReactNode;
-  logoHref?: string;
-  links: NavLink[];
-  rightActions?: React.ReactNode;
-  sticky?: boolean;
-}
+// src/components/layout/Navbar.tsx
+import * as React from "react"
+import { cn } from "../../lib/cn"
+import type { NavbarProps, NavLink } from "../../types"
+import Container from "./Spacing/Container"
+import { Link, useNavigate } from "react-router-dom"
+import { useScrollDirection } from "../../hooks/usScrollDirection"
+import LogoAnimator from "../animations/LogoAnimator"
+import NavItemAnimator from "../animations/NavItemAnimater"
 
 const Navbar: React.FC<NavbarProps> = ({
   logo,
@@ -24,60 +17,49 @@ const Navbar: React.FC<NavbarProps> = ({
   className,
   ...props
 }) => {
-  const [open, setOpen] = React.useState(false);
-  const menuRef = React.useRef<HTMLDivElement | null>(null);
-  const navigate = useNavigate();
+  const [open, setOpen] = React.useState(false)
+  const menuRef = React.useRef<HTMLDivElement | null>(null)
+  const navigate = useNavigate()
 
-  // ✅ scroll direction hook
-  const hidden = useScrollDirection();
+  const hidden = useScrollDirection()
 
-  // Escape press => close menu
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+      if (e.key === "Escape") setOpen(false)
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [])
 
-  // Outside click => close menu
   React.useEffect(() => {
     const onClickOutside = (e: MouseEvent) => {
-      if (!menuRef.current) return;
-      const target = e.target as Node;
-
-    // Agar click menuRef ke andar ya button ke andar hua → ignore karo
-    const button = document.querySelector("#menu-toggle-btn");
-    if (
-      open &&
-      !menuRef.current.contains(target) &&
-      !(button && button.contains(target))
-    ) {
-      setOpen(false);
+      if (!menuRef.current) return
+      const target = e.target as Node
+      const button = document.querySelector("#menu-toggle-btn")
+      if (open && !menuRef.current.contains(target) && !(button && button.contains(target))) {
+        setOpen(false)
+      }
     }
-  };
+    document.addEventListener("mousedown", onClickOutside)
+    return () => document.removeEventListener("mousedown", onClickOutside)
+  }, [open])
 
-    document.addEventListener("mousedown", onClickOutside);
-    return () => document.removeEventListener("mousedown", onClickOutside);
-  }, [open]);
-
-  // Animation navigation (Services & Contact only)
   const navigateWithRect = (href: string, el: Element | null) => {
     if (!el) {
-      navigate(href);
-      setOpen(false);
-      return;
+      navigate(href)
+      setOpen(false)
+      return
     }
-    const r = el.getBoundingClientRect();
+    const r = el.getBoundingClientRect()
     const originRect = {
       left: r.left,
       top: r.top,
       width: r.width,
       height: r.height,
-    };
-    navigate(href, { state: { originRect } });
-    setOpen(false);
-  };
+    }
+    navigate(href, { state: { originRect } })
+    setOpen(false)
+  }
 
   return (
     <nav
@@ -95,20 +77,21 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="flex flex-1 items-center h-full">
             {logo ? (
               typeof logo === "string" ? (
-                <a
-                  href={logoHref ?? "/"}
+                <Link
+                  to={logoHref ?? "/"}
                   className="px-4 md:px-18 font-semibold text-slate-900 text-[clamp(1rem,2vw+0.5rem,1.5rem)]"
                   data-cursor="hover"
+                  onClick={(e) => {
+                    if (window.location.pathname === (logoHref ?? "/")) {
+                      e.preventDefault()
+                      window.location.reload() // force reload if already on same path
+                    }
+                  }}
                 >
                   <LogoAnimator text={logo} />
-                </a>
+                </Link>
               ) : (
-                <a
-                  href={logoHref ?? "/"}
-                  className="inline-flex items-center"
-                  aria-label="Home"
-                  data-cursor="hover"
-                >
+                <a href={logoHref ?? "/"} className="inline-flex items-center" aria-label="Home" data-cursor="hover">
                   {logo}
                 </a>
               )
@@ -119,16 +102,16 @@ const Navbar: React.FC<NavbarProps> = ({
           <div className="hidden md:flex md:items-center md:gap-6 pr-18">
             <ul className="flex items-center gap-14">
               {links.map((item, index) => (
-                <li key={item.href} className="overflow-hidden">
+                <li key={`${item.href}-${index}`} className="overflow-hidden">
                   <a
                     href={item.href}
                     onClick={(e) => {
-                      e.preventDefault();
+                      e.preventDefault()
                       if (item.href === "/services" || item.href === "/contact") {
-                        navigateWithRect(item.href, e.currentTarget);
+                        navigateWithRect(item.href, e.currentTarget)
                       } else {
-                        navigate(item.href);
-                        setOpen(false);
+                        navigate(item.href)
+                        setOpen(false)
                       }
                     }}
                     className="group relative block overflow-hidden text-lg font-medium text-slate-950"
@@ -139,9 +122,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 </li>
               ))}
             </ul>
-            {rightActions ? (
-              <div className="ml-4 flex items-center gap-2">{rightActions}</div>
-            ) : null}
+            {rightActions && <div className="ml-4 flex items-center gap-2">{rightActions}</div>}
           </div>
 
           {/* Mobile menu button */}
@@ -156,36 +137,12 @@ const Navbar: React.FC<NavbarProps> = ({
               onClick={() => setOpen(!open)}
             >
               {open ? (
-                // Close icon
-                <svg
-                  className="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                // Hamburger icon
-                <svg
-                  className="h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  />
+                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
               )}
             </button>
@@ -194,35 +151,21 @@ const Navbar: React.FC<NavbarProps> = ({
 
         {/* Mobile menu */}
         {open && (
-          <div
-            ref={menuRef}
-            id="mobile-menu"
-            className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg"
-          >
-            <a
-              href="#"
-              className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200"
-            >
-              Home
-
-            </a>
-            <a
-              href="#"
-              className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200"
-            >
-              Services
-            </a>
-            <a
-              href="#"
-              className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200"
-            >
-              Contact
-            </a>
+          <div ref={menuRef} id="mobile-menu" className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg">
+            {[
+              { label: "Home", key: "mobile-home", href: "/#home" },
+              { label: "Services", key: "mobile-services", href: "/services" },
+              { label: "Contact", key: "mobile-contact", href: "/contact" },
+            ].map((item) => (
+              <a key={item.key} href={item.href} className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200" onClick={() => setOpen(false)}>
+                {item.label}
+              </a>
+            ))}
           </div>
         )}
       </Container>
     </nav>
   )
-};
+}
 
-export default Navbar;
+export default Navbar

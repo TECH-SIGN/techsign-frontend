@@ -1,22 +1,12 @@
 import * as React from 'react'
-import Navbar, { type NavbarProps } from './Navbar'
-import Footer, { type FooterProps } from './Footer'
 import { cn } from '../../lib/cn'
-import { NAVBAR_LINKS, FOOTER_LINKS, LOGO_TEXT, BRAND_NAME } from '../../constants'
-import { Outlet } from 'react-router-dom'
+import Navbar from './Navbar'
+import Footer from './Footer'
 import Cursor from '../ui/Cursor'
+import { Outlet } from 'react-router-dom'
+import { NAVBAR_LINKS, FOOTER_LINKS, LOGO_TEXT, BRAND_NAME } from '../../constants'
+import { LayoutProps } from '../../types'
 
-export interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
-  navbar?: Omit<NavbarProps, 'className'> & { className?: string }
-  footer?: Omit<FooterProps, 'className'> & { className?: string }
-  containerClassName?: string
-}
-
-/**
- * Layout: Composes Navbar + page content + Footer with zero duplication.
- * - Accepts partial props for Navbar and Footer.
- * - Provides sensible defaults but keeps full control in the page.
- */
 export const Layout: React.FC<LayoutProps> = ({
   navbar,
   footer,
@@ -26,7 +16,10 @@ export const Layout: React.FC<LayoutProps> = ({
   ...props
 }) => {
   return (
-    <div className={cn('min-h-screen w-full bg-white/100 text-slate-950 flex flex-col', className)} {...props}>
+    <div
+      className={cn('min-h-screen w-full bg-white text-slate-950 flex flex-col', className)}
+      {...props}
+    >
       <Navbar
         logo={navbar?.logo ?? LOGO_TEXT}
         logoHref={navbar?.logoHref}
@@ -35,8 +28,8 @@ export const Layout: React.FC<LayoutProps> = ({
         sticky={navbar?.sticky}
         className={navbar?.className}
       />
-      <main className={cn('mx-auto w-full flex-1 py-10 bg-white/100', containerClassName)}>
-        {children ? children : <Outlet />}
+      <main className={cn('mx-auto w-full flex-1 py-10 bg-white', containerClassName)}>
+        {children ?? <Outlet />}
       </main>
       <Footer
         brand={footer?.brand ?? BRAND_NAME}

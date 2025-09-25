@@ -1,12 +1,8 @@
 import * as React from "react"
 import { cn } from "../../lib/cn"
-import type { FeatureCardData } from "../../types"
 import { Button } from "../ui"
+import { FeatureCardProps } from "../../types"
 
-export interface FeatureCardProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  data: FeatureCardData
-}
 
 export const FeatureCard: React.FC<FeatureCardProps> = React.memo(
   ({ data, className, ...props }) => {

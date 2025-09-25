@@ -1,12 +1,8 @@
 // src/components/animations/AnimatedList.tsx
 import { motion } from "framer-motion"
 import React from "react"
+import { AnimatedListProps } from "../../types/animations"
 
-interface AnimatedListProps {
-  items: React.ReactNode[]   // 👈 list me jo bhi chahiye pass kar sakte ho (string, jsx, spans etc)
-  className?: string
-  delayStep?: number         // har ek ke beech kitna delay ho (default 0.2s)
-}
 
 const AnimatedList: React.FC<AnimatedListProps> = ({
   items,

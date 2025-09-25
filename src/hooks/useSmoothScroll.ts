@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
+import { UseSmoothScrollOptions } from '../types/Hooks'
 
 // Lazy import to avoid SSR and bundle bloat when not needed
-export function useSmoothScroll(enabled: boolean = true) {
+export function useSmoothScroll(enabled: UseSmoothScrollOptions  = true) {
    // ✅ Track current route path
 
   useEffect(() => {

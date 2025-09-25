@@ -2,6 +2,7 @@ import * as React from "react"
 import { cn } from "../../lib/cn"
 import MyComponent from "../animations/splitTextAnimation"
 import Container from "../layout/Spacing/Container"
+import ZoomOutOnLoad from "../animations/ZoomInOnLoad"
 
 export interface HeroProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string
@@ -41,6 +42,7 @@ const Hero: React.FC<HeroProps> = ({
       </Container>
 
       {videoSrc ? (
+        <ZoomOutOnLoad>
         <div className="relative h-[85vh] w-full rounded-[40px] overflow-hidden">
           <video
             className="block w-full h-full object-cover rounded-[40px]"
@@ -56,6 +58,7 @@ const Hero: React.FC<HeroProps> = ({
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30 rounded-[40px]" />
           )}
         </div>
+        </ZoomOutOnLoad>
       ) : null}
     </section>
   )

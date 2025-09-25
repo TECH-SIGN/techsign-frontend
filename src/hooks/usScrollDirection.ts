@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
+import { UseScrollDirectionReturn } from "../types/Hooks"
 
-export function useScrollDirection() {
+export function useScrollDirection(): UseScrollDirectionReturn {
   const [hidden, setHidden] = useState(false)
 
   useEffect(() => {

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
+import { UseCursorReturn } from '../types/Hooks'
 
-export function useCursor() {
-  const ref = useRef<HTMLDivElement | null>(null)
+export function useCursor(): UseCursorReturn {
+  const ref = useRef<HTMLDivElement>(null)
   const [hover, setHover] = useState(false)
   const [hidden, setHidden] = useState(false)
   const pos = useRef({ x: 0, y: 0, tx: 0, ty: 0 })
@@ -10,7 +11,6 @@ export function useCursor() {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-
     let hoveringCount = 0
 
     const onMove = (e: MouseEvent) => {
@@ -19,40 +19,16 @@ export function useCursor() {
       if (hidden) setHidden(false)
     }
 
-    const onOver = (e: Event) => {
-      hoveringCount += 1
-      if (hoveringCount > 0) setHover(true)
-    }
-    const onOut = (e: Event) => {
-      hoveringCount = Math.max(0, hoveringCount - 1)
-      if (hoveringCount === 0) setHover(false)
-    }
-
+    const onOver = () => { hoveringCount++; if (hoveringCount > 0) setHover(true) }
+    const onOut = () => { hoveringCount = Math.max(0, hoveringCount - 1); if (hoveringCount === 0) setHover(false) }
     const onWindowLeave = () => setHidden(true)
     const onWindowEnter = () => setHidden(false)
-    const onDocMouseOut = (e: MouseEvent) => {
-      // If relatedTarget is null, the pointer left the document (window)
-      if (!(e.relatedTarget as Node | null)) setHidden(true)
-    }
+    const onDocMouseOut = (e: MouseEvent) => { if (!(e.relatedTarget as Node | null)) setHidden(true) }
     const onDocMouseOver = () => setHidden(false)
-    const onVisibility = () => {
-      if (document.visibilityState === 'hidden') setHidden(true)
-      else setHidden(false)
-    }
+    const onVisibility = () => setHidden(document.visibilityState === 'hidden')
+    const hoverSelector = 'a, button, [role="button"], [data-cursor="hover"]'
 
     window.addEventListener('mousemove', onMove)
-    // Delegated hover tracking for interactive elements and explicit opt-in
-    const hoverSelector = 'a, button, [role="button"], [data-cursor="hover"]'
-    document.addEventListener('mouseover', (e) => {
-      const t = e.target as HTMLElement
-      if (t && t.closest(hoverSelector)) onOver(e)
-    })
-    document.addEventListener('mouseout', (e) => {
-      const t = e.target as HTMLElement
-      if (t && t.closest(hoverSelector)) onOut(e)
-    })
-
-    // Hide cursor when leaving the page / window loses focus
     window.addEventListener('mouseleave', onWindowLeave)
     window.addEventListener('blur', onWindowLeave)
     window.addEventListener('mouseenter', onWindowEnter)
@@ -60,11 +36,11 @@ export function useCursor() {
     document.addEventListener('mouseout', onDocMouseOut)
     document.addEventListener('mouseover', onDocMouseOver)
     document.addEventListener('visibilitychange', onVisibility)
+    document.addEventListener('mouseover', (e) => { const t = e.target as HTMLElement; if (t && t.closest(hoverSelector)) onOver() })
+    document.addEventListener('mouseout', (e) => { const t = e.target as HTMLElement; if (t && t.closest(hoverSelector)) onOut() })
 
-    // Smooth follow loop (spring-like lerp)
     const follow = () => {
       const p = pos.current
-      // damping factor for smooth, natural motion (0.15..0.25)
       const k = 0.2
       p.x += (p.tx - p.x) * k
       p.y += (p.ty - p.y) * k

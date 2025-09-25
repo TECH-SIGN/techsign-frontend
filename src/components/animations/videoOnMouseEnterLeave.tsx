@@ -1,10 +1,7 @@
 import React, { useRef, useState } from "react"
 import { motion } from "framer-motion"
+import { PortfolioVideoProps } from "../../types/animations"
 
-export interface PortfolioVideoProps {
-  src: string
-  thumbnail: string
-}
 
 const PortfolioVideo: React.FC<PortfolioVideoProps> = ({ src, thumbnail }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null)
@@ -28,7 +25,7 @@ const PortfolioVideo: React.FC<PortfolioVideoProps> = ({ src, thumbnail }) => {
 
   return (
     <motion.div
-      className="relative overflow-hidden rounded-4xl shadow-lg cursor-pointer w-[600px] h-[400px]"
+      className="relative inherit overflow-hidden rounded-4xl shadow-lg cursor-pointer w-full h-full"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       initial={{ scale: 1 }}
