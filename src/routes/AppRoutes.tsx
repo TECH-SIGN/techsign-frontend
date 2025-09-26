@@ -12,14 +12,15 @@ const AppRoutes: React.FC = () => {
 
   return (
     <>
-    <PageTransition />
     <AnimatePresence mode="wait">
     <Routes location={location}>
+      <Route element={<PageTransition />}>
       <Route element={<Layout />}>
         <Route index element={ <Home />} />                 {/* "/" path */}
         <Route path="services" element={<Services />} />\ {/* "/services" path */}
         <Route path="about" element={<About />} />
         <Route path="pricing" element={<Pricing />} />
+      </Route>
       </Route>
     </Routes>
     </AnimatePresence>

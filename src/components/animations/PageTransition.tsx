@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react"
-import { useLocation } from "react-router-dom"
+import { useEffect, useRef, useState } from "react"
+import { useLocation, Outlet } from "react-router-dom"
 import gsap from "gsap"
-import { PageTransitionRefs, ScrollAnimationRefs } from "../../types/animations"
+import { PageTransitionRefs } from "../../types/animations"
 
 const PageTransition = () => {
   // ✅ Refs with extracted type
@@ -11,10 +11,8 @@ const PageTransition = () => {
     lastPathname: useRef<string | null>(null),
   }
 
-  // ScrollAnimation refs for background animation pause/resume
-  const scrollRefs: ScrollAnimationRefs = {}
-
   const location = useLocation()
+  const [delayedPath, setDelayedPath] = useState(location.pathname)
 
   useEffect(() => {
     if (!refs.dimRef.current || !refs.overlayRef.current) return
@@ -33,6 +31,7 @@ const PageTransition = () => {
       gsap.set(refs.overlayRef.current, { opacity: 0, yPercent: 0 })
       gsap.set(refs.dimRef.current, { opacity: 0 })
       refs.lastPathname.current = location.pathname
+      setDelayedPath(location.pathname)
       return
     }
 
@@ -41,13 +40,20 @@ const PageTransition = () => {
       gsap.set(refs.overlayRef.current, { opacity: 0, yPercent: 0 })
       gsap.set(refs.dimRef.current, { opacity: 0 })
       refs.lastPathname.current = location.pathname
+      setDelayedPath(location.pathname)
       return
     }
 
     if (refs.lastPathname.current === location.pathname) return
 
-    // 🔹 PageTransition animation
-    const tl = gsap.timeline()
+    const tl = gsap.timeline({
+      // ✅ Naya page tabhi dikhega jab overlay puri tarah se cover kar le
+      onComplete: () => {
+        setDelayedPath(location.pathname)
+        refs.lastPathname.current = location.pathname
+      }
+    })
+
     try {
       gsap.set(refs.overlayRef.current, { yPercent: 100, opacity: 1 })
       gsap.set(refs.dimRef.current, { opacity: 0 })
@@ -61,18 +67,22 @@ const PageTransition = () => {
           yPercent: 0,
           duration: 0.6,
           ease: "power4.inOut",
+          onComplete: () => {
+            // ✅ Jaise hi overlay puri screen cover kare → new page load hoga
+            setDelayedPath(location.pathname)
+            refs.lastPathname.current = location.pathname
+          }
         })
         .to([refs.overlayRef.current, refs.dimRef.current], {
           opacity: 0,
           duration: 0.5,
           ease: "power4.inOut",
         })
-
-      refs.lastPathname.current = location.pathname
     } catch (err) {
       console.warn("PageTransition animation failed, fallback applied", err)
       gsap.set(refs.overlayRef.current, { opacity: 0, yPercent: 0 })
       gsap.set(refs.dimRef.current, { opacity: 0 })
+      setDelayedPath(location.pathname)
     }
   }, [location.pathname])
 
@@ -86,6 +96,9 @@ const PageTransition = () => {
         ref={refs.overlayRef}
         className="fixed top-0 left-0 w-full h-full bg-white shadow-2xl z-[9999] pointer-events-none"
       />
+
+      {/* 👇 Old page pe animation chalega, new page sirf delayedPath pe dikhega */}
+      {location.pathname === delayedPath && <Outlet/>}
     </>
   )
 }
