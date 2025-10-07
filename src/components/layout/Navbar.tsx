@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useScrollDirection } from "../../hooks/usScrollDirection"
 import LogoAnimator from "../animations/LogoAnimator"
 import NavItemAnimator from "../animations/NavItemAnimater"
+import { motion, AnimatePresence } from "framer-motion"
 
 const Navbar: React.FC<NavbarProps> = ({
   logo,
@@ -15,6 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({
   rightActions,
   sticky = true,
   className,
+  animateNavItems = true,
   ...props
 }) => {
   const [open, setOpen] = React.useState(false)
@@ -36,12 +38,15 @@ const Navbar: React.FC<NavbarProps> = ({
       if (!menuRef.current) return
       const target = e.target as Node
       const button = document.querySelector("#menu-toggle-btn")
-      if (open && !menuRef.current.contains(target) && !(button && button.contains(target))) {
+      // console.log("clicked target:", target, "is button?", button?.contains(target))
+      if (button && button.contains(target)) return;
+      if (open && !menuRef.current.contains(target)) {
+        // console.log("closing menu...")
         setOpen(false)
       }
     }
-    document.addEventListener("mousedown", onClickOutside)
-    return () => document.removeEventListener("mousedown", onClickOutside)
+    document.addEventListener("click", onClickOutside)
+    return () => document.removeEventListener("click", onClickOutside)
   }, [open])
 
   const navigateWithRect = (href: string, el: Element | null) => {
@@ -134,14 +139,31 @@ const Navbar: React.FC<NavbarProps> = ({
               aria-controls="mobile-menu"
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
-              onClick={() => setOpen(!open)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpen((prev) => !prev)
+              }}
             >
               {open ? (
-                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg
+                  className="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <svg
+                  className="h-6 w-6"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
               )}
@@ -150,21 +172,27 @@ const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Mobile menu */}
+        <AnimatePresence>
         {open && (
-          <div ref={menuRef} id="mobile-menu" className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg">
+          <motion.div ref={menuRef} id="mobile-menu"
+            initial={{ x: "100%", opacity: 0 }}      // ✅ start: right se bahar
+            animate={{ x: 0, opacity: 1 }}           // ✅ enter: screen me aa raha hai
+            exit={{ x: "100%", opacity: 0 }}         // ✅ exit: wapas right side chala gaya
+            transition={{ type: "tween", duration: 0.6, ease: "easeInOut" }} className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg">
             {[
               { label: "Home", key: "mobile-home", href: "/#home" },
               { label: "Services", key: "mobile-services", href: "/services" },
               { label: "Contact", key: "mobile-contact", href: "/contact" },
             ].map((item) => (
-              <a key={item.key} href={item.href} className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200" onClick={() => setOpen(false)}>
+              <Link key={item.key} to={item.href} className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200" onClick={() => setOpen(false)}>
                 {item.label}
-              </a>
+              </Link>
             ))}
-          </div>
+          </motion.div>
         )}
+        </AnimatePresence>
       </Container>
-    </nav>
+    </nav >
   )
 }
 

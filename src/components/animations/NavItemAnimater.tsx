@@ -3,9 +3,28 @@ import React from "react"
 import { useLocation } from "react-router-dom"
 import { NavItemAnimatorProps } from "../../types/animations"
 
+const NavItemAnimator: React.FC<NavItemAnimatorProps> = ({
+  text,
+  delay = 0,
+  animate = true, // ✅ add animate prop
+}) => {
+  const location = useLocation()
 
-const NavItemAnimator: React.FC<NavItemAnimatorProps> = ({ text, delay = 0 }) => {
-    const location = useLocation()
+  // Agar animate false hai → sirf normal render karo
+  if (!animate) {
+    return (
+      <span className="relative block overflow-hidden group">
+        <span className="block translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:-translate-y-full">
+          {text}
+        </span>
+        <span className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-y-0">
+          {text}
+        </span>
+      </span>
+    )
+  }
+
+  // Animate true → Framer Motion animation
   return (
     <motion.span
       key={location.pathname + text}
@@ -14,11 +33,9 @@ const NavItemAnimator: React.FC<NavItemAnimatorProps> = ({ text, delay = 0 }) =>
       transition={{ duration: 0.6, ease: "easeOut", delay }}
       className="relative block overflow-hidden group"
     >
-      {/* Normal state */}
       <span className="block translate-y-0 transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:-translate-y-full">
         {text}
       </span>
-      {/* Hover ke liye duplicate */}
       <span className="absolute inset-0 block translate-y-full transition-transform duration-400 ease-[cubic-bezier(0.77,0,0.175,1)] group-hover:translate-y-0">
         {text}
       </span>

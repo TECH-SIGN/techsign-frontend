@@ -4,13 +4,14 @@ import SplitType from "split-type";
 import gsap from "gsap";
 import type { MyComponentProps, MyComponentRefs, CleanupFn, SplitInstance, Timeline } from "../../types/animations";
 
-const MyComponent: React.FC<MyComponentProps> = ({ title, subtitle }) => {
+const MyComponent: React.FC<MyComponentProps> = ({ title, subtitle, startAnimation = true, titleClassName, subtitleClassName, containerClassName }) => {
   const refs: MyComponentRefs = {
     titleRef: useRef<HTMLHeadingElement>(null),
     subtitleRef: useRef<HTMLParagraphElement>(null),
   };
 
   useEffect(() => {
+    if (!startAnimation) return;
     const animateWords = (element: HTMLElement | null, delay = 0): CleanupFn | undefined => {
       if (!element) return;
 
@@ -65,20 +66,20 @@ const MyComponent: React.FC<MyComponentProps> = ({ title, subtitle }) => {
       cleanupTitle?.();
       cleanupSubtitle?.();
     };
-  }, [title, subtitle]);
+  }, [title, subtitle,  startAnimation]);
 
-  return (
-    <div className="text-center">
+    return (
+    <div className={`text-center ${containerClassName ?? ""}`}>
       <h1
         ref={refs.titleRef}
-        className="hero-title text-4xl sm:text-5xl lg:text-5xl font-bold leading-tight whitespace-pre-line"
+        className={`hero-title ${titleClassName ?? "text-4xl sm:text-5xl lg:text-5xl"} font-bold leading-tight whitespace-pre-liner`}
       >
         {title}
       </h1>
       {subtitle && (
         <p
           ref={refs.subtitleRef}
-          className="mt-6 text-xl sm:text-xl lg:text-xl max-w-3xl mx-auto text-slate-900"
+          className={`mt-6 ${subtitleClassName ?? "text-xl sm:text-xl lg:text-xl"} max-w-3xl mx-auto text-slate-900`}
         >
           {subtitle}
         </p>
