@@ -2,7 +2,7 @@ import * as React from "react"
 import { cn } from "../../lib/cn"
 import MyComponent from "../animations/splitTextAnimation"
 import Container from "../layout/Spacing/Container"
-import ZoomOutOnLoad from "../animations/ZoomInOnLoad"
+import ZoomOutOnLoad from "../animations/ZoomOutOnLoad"
 
 export interface HeroProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string

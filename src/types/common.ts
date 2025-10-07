@@ -10,6 +10,7 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   links: NavLink[]
   rightActions?: React.ReactNode
   sticky?: boolean
+  animateNavItems?: boolean;
 }
 
 export interface LayoutProps extends HTMLAttributes<HTMLDivElement> {

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { useLocation, Outlet, useOutlet } from "react-router-dom"
 import gsap from "gsap"
 import { PageTransitionRefs } from "../../types/animations"
+import Navbar from "../layout/Navbar"
+import { LOGO_TEXT, NAVBAR_LINKS } from "../../constants"
 
 const PageTransition = () => {
   const refs: PageTransitionRefs = {
@@ -13,6 +15,7 @@ const PageTransition = () => {
   const location = useLocation()
   const outlet = useOutlet()   // 👈 abhi match hua hua element
   const [displayElement, setDisplayElement] = useState(outlet) // jo dikhana hai
+  const [transitionDone, setTransitionDone] = useState(false);
 
   useEffect(() => {
     if (!refs.dimRef.current || !refs.overlayRef.current) return
@@ -50,10 +53,10 @@ const PageTransition = () => {
       gsap.set(refs.dimRef.current, { opacity: 0 })
 
       const tl = gsap.timeline({
-      onComplete: () => {
-        refs.lastPathname.current = location.pathname
-      }
-    })
+        onComplete: () => {
+          refs.lastPathname.current = location.pathname
+        }
+      })
 
       tl.to(refs.dimRef.current, {
         opacity: 0.2,
@@ -66,7 +69,7 @@ const PageTransition = () => {
           ease: "power4.inOut",
           onComplete: () => {
             // ✅ Jaise hi overlay puri screen cover kare → new page dikhana shuru
-            setDisplayElement(outlet)
+            setDisplayElement(outlet);
             refs.lastPathname.current = location.pathname
           }
         })
@@ -74,11 +77,15 @@ const PageTransition = () => {
           opacity: 0,
           duration: 0.5,
           ease: "power4.inOut",
+          onComplete: () => {
+            setTransitionDone(true);
+          }
         })
     } catch (err) {
       console.warn("PageTransition animation failed, fallback applied", err)
-      gsap.set(refs.overlayRef.current, { opacity: 0, yPercent: 0 })
-      gsap.set(refs.dimRef.current, { opacity: 0 })
+      gsap.set(refs.overlayRef.current, { yPercent: 100, opacity: 1 });
+      gsap.set(refs.dimRef.current, { opacity: 0 });
+      setTransitionDone(false); // reset before new transition
       setDisplayElement(outlet)
     }
   }, [location.pathname])
@@ -92,6 +99,11 @@ const PageTransition = () => {
       <div
         ref={refs.overlayRef}
         className="fixed top-0 left-0 w-full h-full bg-white shadow-2xl z-[9999] pointer-events-none"
+      />
+      <Navbar
+        logo={LOGO_TEXT}
+        links={NAVBAR_LINKS}   // ✅ ye zaroori hai, warna error ayega
+        animateNavItems={transitionDone}
       />
 
       {/* 👇 Ab ye independent render hai */}

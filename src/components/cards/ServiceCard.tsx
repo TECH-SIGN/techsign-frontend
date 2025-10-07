@@ -1,25 +1,30 @@
 import * as React from 'react'
 import { cn } from '../../lib/cn'
 import type { ServiceCardProps } from '../../types/services'
-import { Button } from '../ui'
+import ZoomOutOnLoad from '../animations/ZoomOutOnLoad'
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon, ctaHref, ctaLabel, className, ...props }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, className, videoSrc, overlay = true, ...props }) => {
   return (
-    <div className={cn('rounded-lg border border-slate-200 p-4 shadow-sm bg-white', className)} {...props}>
-      <div className="flex items-start gap-3">
-        <div className="mt-0.5 text-slate-700" aria-hidden>
-          {icon}
-        </div>
-        <div>
-          <h3 className="font-semibold text-slate-900">{title}</h3>
-          <p className="mt-1 text-sm text-slate-600">{description}</p>
-        </div>
-      </div>
-      <div className="mt-3">
-        <a href={ctaHref} aria-label={ctaLabel}>
-          <Button variant="outline" className="justify-start">{ctaLabel}</Button>
-        </a>
-      </div>
+    <div className={cn()} {...props}>
+      <h3 className="font-semibold text-slate-900">{title}</h3>
+      {videoSrc ? (
+        <ZoomOutOnLoad >
+          <div className="relative h-[85vh] w-full rounded-[40px] overflow-hidden">
+            <video
+              className="block w-full h-full object-cover rounded-[40px]"
+              src={videoSrc}
+              preload="metadata"
+              muted
+              playsInline
+              autoPlay
+              loop
+            />
+            {overlay && (
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30 rounded-[40px]" />
+            )}
+          </div>
+        </ZoomOutOnLoad>
+      ) : null}
     </div>
   )
 }

@@ -40,6 +40,7 @@ export interface LogoAnimatorProps {
 export interface NavItemAnimatorProps {
   text: string
   delay?: number
+  animate?: boolean
 }
 
 // 🔹 PageTransition refs
@@ -49,16 +50,15 @@ export interface PageTransitionRefs {
   lastPathname: React.MutableRefObject<string | null>
 }
 
-export interface ScrollAnimationRefs {
-  scrollTrigger?: any   // gsap.ScrollTrigger ka type 'any' for simplicity
-  scrollTimeline?: gsap.core.Timeline
-}
-
 // 🔹 MyComponent (hero title/subtitle)
 export interface MyComponentProps {
-  title: string
-  subtitle?: string
-}
+  title: string;
+  subtitle?: string;
+  titleClassName?: string;    // optional class for title
+  startAnimation?: boolean;
+  subtitleClassName?: string; // optional class for subtitle
+  containerClassName?: string; // optional: outer div ke liye Tailwind
+};
 
 export interface MyComponentRefs {
   titleRef: React.RefObject<HTMLHeadingElement | null>
