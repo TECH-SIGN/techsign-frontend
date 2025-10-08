@@ -25,13 +25,14 @@ const PortfolioVideo: React.FC<PortfolioVideoProps> = ({ src, thumbnail }) => {
 
   return (
     <motion.div
-      className="relative inherit overflow-hidden rounded-4xl shadow-lg cursor-pointer w-full h-full"
+      className="relative aspect-video w-full h-full overflow-hidden rounded-3xl will-change-transform"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       initial={{ scale: 1 }}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-    >
+      >
+
       {/* Thumbnail */}
       <motion.img
         src="/images/thambnail-1.png"
@@ -45,9 +46,11 @@ const PortfolioVideo: React.FC<PortfolioVideoProps> = ({ src, thumbnail }) => {
       <motion.video
         ref={videoRef}
         src={src}
+        preload="auto"
         muted
         playsInline
         loop
+        autoPlay
         className="absolute inset-0 w-full h-full object-cover"
         animate={{ opacity: isHovered ? 1 : 0 }}
         transition={{ duration: 0.5 }}

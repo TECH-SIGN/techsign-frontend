@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { useLocation, Outlet, useOutlet } from "react-router-dom"
+import { useOutlet } from "react-router-dom"
 import gsap from "gsap"
 import { PageTransitionRefs } from "../../types/animations"
 import Navbar from "../layout/Navbar"
@@ -12,13 +12,13 @@ const PageTransition = () => {
     lastPathname: useRef<string | null>(null),
   }
 
-  const location = useLocation()
+  // const location = useLocation()
   const outlet = useOutlet()   // 👈 abhi match hua hua element
   const [displayElement, setDisplayElement] = useState(outlet) // jo dikhana hai
   const [transitionDone, setTransitionDone] = useState(false);
 
   useEffect(() => {
-    if (!refs.dimRef.current || !refs.overlayRef.current) return
+    if (!refs.overlayRef.current || !refs.dimRef.current) return
 
     const navEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[]
     const isReload = navEntries.length > 0 && navEntries[0].type === "reload"
@@ -33,7 +33,8 @@ const PageTransition = () => {
       gsap.set(refs.overlayRef.current, { opacity: 0, yPercent: 0 })
       gsap.set(refs.dimRef.current, { opacity: 0 })
       refs.lastPathname.current = location.pathname
-      setDisplayElement(outlet)
+      setDisplayElement(outlet);
+      setTransitionDone(true);
       return
     }
 
@@ -51,6 +52,7 @@ const PageTransition = () => {
     try {
       gsap.set(refs.overlayRef.current, { yPercent: 100, opacity: 1 })
       gsap.set(refs.dimRef.current, { opacity: 0 })
+
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -70,6 +72,7 @@ const PageTransition = () => {
           onComplete: () => {
             // ✅ Jaise hi overlay puri screen cover kare → new page dikhana shuru
             setDisplayElement(outlet);
+            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
             refs.lastPathname.current = location.pathname
           }
         })
