@@ -1,14 +1,23 @@
 {
-  "name": "techsign-frontend",
+  "name": "techsign-root",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write .",
+    "dev:app": "vite",
+    "build:app": "tsc -b && vite build",
+    "lint:app": "eslint .",
     "preview": "vite preview"
   },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
@@ -44,6 +53,8 @@
     "tailwindcss": "^4.1.13",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "turbo": "^2.2.3",
+    "prettier": "^3.3.3"
   }
 }
