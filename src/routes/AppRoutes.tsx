@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 import { Layout } from '../components/layout';
 import { Home, Services } from '../pages';
 import About from '../pages/About';
@@ -8,12 +8,10 @@ import PageTransition from '../components/animations/PageTransition';
 import { AnimatePresence } from 'framer-motion';
 
 const AppRoutes: React.FC = () => {
-  const location = useLocation();
-
   return (
     <>
     <AnimatePresence mode="wait">
-    <Routes location={location}>
+    <Routes>
       <Route element={<PageTransition />}>
       <Route element={<Layout />}>
         <Route index element={ <Home />} />                 {/* "/" path */}
