@@ -18,6 +18,7 @@ export interface LayoutProps extends HTMLAttributes<HTMLDivElement> {
   footer?: Omit<FooterProps, 'className'> & { className?: string }
   containerClassName?: string
   children?: ReactNode
+  transitionDone?: boolean
 }
 
 
