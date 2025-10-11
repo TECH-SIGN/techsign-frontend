@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react"
-import { useLocation, useOutlet } from "react-router-dom"
+import { useOutlet } from "react-router-dom"
 import gsap from "gsap"
 import { PageTransitionRefs } from "../../types/animations"
 import Navbar from "../layout/Navbar"
 import { LOGO_TEXT, NAVBAR_LINKS } from "../../constants"
-import { Layout } from "../layout"
 
 const PageTransition = () => {
   const refs: PageTransitionRefs = {
@@ -13,13 +12,13 @@ const PageTransition = () => {
     lastPathname: useRef<string | null>(null),
   }
 
-  const location = useLocation()
+  // const location = useLocation()
   const outlet = useOutlet()   // 👈 abhi match hua hua element
   const [displayElement, setDisplayElement] = useState(outlet) // jo dikhana hai
-  const [transitionDone, setTransitionDone] = useState(false)
+  const [transitionDone, setTransitionDone] = useState(false);
 
   useEffect(() => {
-    if (!refs.overlayRef.current || !refs.dimRef.current) return;
+    if (!refs.overlayRef.current || !refs.dimRef.current) return
 
     const navEntries = performance.getEntriesByType("navigation") as PerformanceNavigationTiming[]
     const isReload = navEntries.length > 0 && navEntries[0].type === "reload"
@@ -35,12 +34,20 @@ const PageTransition = () => {
       gsap.set(refs.dimRef.current, { opacity: 0 })
       refs.lastPathname.current = location.pathname
       setDisplayElement(outlet);
-      setTransitionDone(true)
+      setTransitionDone(true);
+      return
+    }
+
+    // 🔹 On first load
+    if (refs.lastPathname.current === null && !isReload) {
+      gsap.set(refs.overlayRef.current, { opacity: 0, yPercent: 0 })
+      gsap.set(refs.dimRef.current, { opacity: 0 })
+      refs.lastPathname.current = location.pathname
+      setDisplayElement(outlet)
       return
     }
 
     if (refs.lastPathname.current === location.pathname) return
-    setTransitionDone(false);
 
     try {
       gsap.set(refs.overlayRef.current, { yPercent: 100, opacity: 1 })
@@ -67,23 +74,24 @@ const PageTransition = () => {
             setDisplayElement(outlet);
             window.scrollTo({ top: 0, left: 0, behavior: "auto" });
             refs.lastPathname.current = location.pathname
-            setTransitionDone(true)
           }
         })
         .to([refs.overlayRef.current, refs.dimRef.current], {
           opacity: 0,
           duration: 0.5,
           ease: "power4.inOut",
+          onComplete: () => {
+            setTransitionDone(true);
+          }
         })
     } catch (err) {
       console.warn("PageTransition animation failed, fallback applied", err)
       gsap.set(refs.overlayRef.current, { yPercent: 100, opacity: 1 });
       gsap.set(refs.dimRef.current, { opacity: 0 });
+      setTransitionDone(false); // reset before new transition
       setDisplayElement(outlet)
-      setTransitionDone(true)
-
     }
-  }, [location.pathname, outlet])
+  }, [location.pathname])
 
   return (
     <>
@@ -97,14 +105,12 @@ const PageTransition = () => {
       />
       <Navbar
         logo={LOGO_TEXT}
-        links={NAVBAR_LINKS}
-        animateNavItems={transitionDone} // ✅ add
+        links={NAVBAR_LINKS}   // ✅ ye zaroori hai, warna error ayega
+        animateNavItems={transitionDone}
       />
 
-      <Layout transitionDone={transitionDone}>
-        {displayElement}
-      </Layout>
-
+      {/* 👇 Ab ye independent render hai */}
+      {displayElement}
     </>
   )
 }

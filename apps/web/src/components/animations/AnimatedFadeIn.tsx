@@ -4,7 +4,7 @@ import { ReactNode } from "react"
 import { AnimatedFadeInProps } from "../../types/animations"
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0 },
 }
 
@@ -15,7 +15,7 @@ const AnimatedFadeIn: React.FC<AnimatedFadeInProps> = ({ children, delay = 0, am
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount }}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      transition={{ duration: 0.5, delay }}
     >
       {children}
     </motion.div>

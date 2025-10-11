@@ -1,7 +1,7 @@
 // src/components/layout/Navbar.tsx
 import * as React from "react"
 import { cn } from "../../lib/cn"
-import type { NavbarProps } from "../../types"
+import type { NavbarProps, NavLink } from "../../types"
 import Container from "./Spacing/Container"
 import { Link, useNavigate } from "react-router-dom"
 import { useScrollDirection } from "../../hooks/usScrollDirection"
@@ -93,7 +93,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     }
                   }}
                 >
-                  <LogoAnimator key={animateNavItems ? 'animate' : 'noanimate'} text={logo} animate={animateNavItems} />
+                  <LogoAnimator text={logo} />
                 </Link>
               ) : (
                 <a href={logoHref ?? "/"} className="inline-flex items-center" aria-label="Home" data-cursor="hover">
@@ -122,7 +122,7 @@ const Navbar: React.FC<NavbarProps> = ({
                     className="group relative block overflow-hidden text-lg font-medium text-slate-950"
                     data-cursor="hover"
                   >
-                    <NavItemAnimator text={item.label} delay={index * 0.2} animate={animateNavItems} />
+                    <NavItemAnimator text={item.label} delay={index * 0.2} />
                   </a>
                 </li>
               ))}
@@ -173,23 +173,23 @@ const Navbar: React.FC<NavbarProps> = ({
 
         {/* Mobile menu */}
         <AnimatePresence>
-          {open && (
-            <motion.div ref={menuRef} id="mobile-menu"
-              initial={{ x: "100%", opacity: 0 }}      // ✅ start: right se bahar
-              animate={{ x: 0, opacity: 1 }}           // ✅ enter: screen me aa raha hai
-              exit={{ x: "100%", opacity: 0 }}         // ✅ exit: wapas right side chala gaya
-              transition={{ type: "tween", duration: 0.6, ease: "easeInOut" }} className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg">
-              {[
-                { label: "Home", key: "mobile-home", href: "/#home" },
-                { label: "Services", key: "mobile-services", href: "/services" },
-                { label: "Contact", key: "mobile-contact", href: "/contact" },
-              ].map((item) => (
-                <Link key={item.key} to={item.href} className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200" onClick={() => setOpen(false)}>
-                  {item.label}
-                </Link>
-              ))}
-            </motion.div>
-          )}
+        {open && (
+          <motion.div ref={menuRef} id="mobile-menu"
+            initial={{ x: "100%", opacity: 0 }}      // ✅ start: right se bahar
+            animate={{ x: 0, opacity: 1 }}           // ✅ enter: screen me aa raha hai
+            exit={{ x: "100%", opacity: 0 }}         // ✅ exit: wapas right side chala gaya
+            transition={{ type: "tween", duration: 0.6, ease: "easeInOut" }} className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg">
+            {[
+              { label: "Home", key: "mobile-home", href: "/#home" },
+              { label: "Services", key: "mobile-services", href: "/services" },
+              { label: "Contact", key: "mobile-contact", href: "/contact" },
+            ].map((item) => (
+              <Link key={item.key} to={item.href} className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200" onClick={() => setOpen(false)}>
+                {item.label}
+              </Link>
+            ))}
+          </motion.div>
+        )}
         </AnimatePresence>
       </Container>
     </nav >

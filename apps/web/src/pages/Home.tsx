@@ -82,7 +82,9 @@ const Home: React.FC = () => {
         className="py-28 bg-black/93 text-white rounded-[75px]"
         role="region"
         aria-labelledby="portfolio-heading"
+        data-animate="fade-up"
       >
+
         <Container className="text-center" >
           <h2
             id="portfolio-heading"

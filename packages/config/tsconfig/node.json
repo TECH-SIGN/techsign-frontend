@@ -1,0 +1,12 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "incremental": true
+  },
+  "include": ["vite.config.ts", "**/*.config.ts", "**/*.config.js"]
+}

@@ -1,7 +1,9 @@
 import type { Config } from 'tailwindcss'
+import preset from '../../packages/config/tailwind/tailwind.preset'
 import animateCss from 'tw-animate-css'
 
 const config: Config = {
+  presets: [preset],
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   important: '#root',
   theme: {
