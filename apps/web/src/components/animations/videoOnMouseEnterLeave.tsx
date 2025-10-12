@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react"
 import { motion } from "framer-motion"
-import { PortfolioVideoProps } from "../../types/animations"
+import { PortfolioVideoProps } from "@techsign/shared"
 
 
 const PortfolioVideo: React.FC<PortfolioVideoProps> = ({ src, thumbnail }) => {

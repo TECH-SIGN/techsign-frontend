@@ -65,11 +65,10 @@ export interface MyComponentRefs {
   subtitleRef: React.RefObject<HTMLParagraphElement | null>
 }
 
-
 export type CleanupFn = () => void
-export type Timeline = gsap.core.Timeline
+// Avoid referencing gsap namespace from shared types to prevent build-time dependency
+export type Timeline = any
 export type SplitInstance = SplitType & { chars?: HTMLElement[]; words?: HTMLElement[]; revert?: () => void }
-
 
 // 🔹 PortfolioVideo
 export interface PortfolioVideoProps {

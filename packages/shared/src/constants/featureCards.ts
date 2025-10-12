@@ -19,68 +19,67 @@ export const SERVICES_CARDS: FeatureCardData[] = [
     description: 'Access comprehensive guides and documentation for our services.',
     action: { label: 'View Docs', href: '#docs' },
   },
-{
-    id: "1",
-    title: "Web Development",
+  {
+    id: '1',
+    title: 'Web Development',
     description:
-      "We craft modern, responsive, and scalable websites tailored to your business needs.",
+      'We craft modern, responsive, and scalable websites tailored to your business needs.',
     action: {
-      label: "Learn More",
-      href: "/services/web-development",
+      label: 'Learn More',
+      href: '/services/web-development',
     },
   },
   {
-    id: "2",
-    title: "Backend & Cloud",
+    id: '2',
+    title: 'Backend & Cloud',
     description:
-      "Powerful, secure, and high-performance backend systems with cloud-ready architecture.",
+      'Powerful, secure, and high-performance backend systems with cloud-ready architecture.',
     action: {
-      label: "Learn More",
-      href: "/services/backend-cloud",
+      label: 'Learn More',
+      href: '/services/backend-cloud',
     },
   },
   {
-    id: "3",
-    title: "AI & Automation",
+    id: '3',
+    title: 'AI & Automation',
     description:
-      "Smart AI-driven solutions that help automate workflows and scale your business.",
+      'Smart AI-driven solutions that help automate workflows and scale your business.',
     action: {
-      label: "Learn More",
-      href: "/services/ai-automation",
+      label: 'Learn More',
+      href: '/services/ai-automation',
     },
   },
   {
-    id: "4",
-    title: "UI/UX Design",
+    id: '4',
+    title: 'UI/UX Design',
     description:
-      "Beautiful, user-friendly interfaces designed to delight and engage your audience.",
+      'Beautiful, user-friendly interfaces designed to delight and engage your audience.',
     action: {
-      label: "Learn More",
-      href: "/services/ui-ux",
+      label: 'Learn More',
+      href: '/services/ui-ux',
     },
   },
   {
-    id: "5",
-    title: "Consulting",
+    id: '5',
+    title: 'Consulting',
     description:
-      "We help you strategize and plan your digital transformation for long-term success.",
+      'We help you strategize and plan your digital transformation for long-term success.',
     action: {
-      label: "Learn More",
-      href: "/services/consulting",
+      label: 'Learn More',
+      href: '/services/consulting',
     },
   },
   {
-    id: "6",
-    title: "Maintenance & Support",
+    id: '6',
+    title: 'Maintenance & Support',
     description:
-      "Continuous support and monitoring to ensure your systems run smoothly.",
+      'Continuous support and monitoring to ensure your systems run smoothly.',
     action: {
-      label: "Learn More",
-      href: "/services/support",
+      label: 'Learn More',
+      href: '/services/support',
     },
   },
 ]
-
 
 export const FEATURE_CARDS: FeatureCardData[] = [
   {

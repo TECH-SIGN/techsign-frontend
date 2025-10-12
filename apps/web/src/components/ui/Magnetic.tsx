@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { cn } from '../../lib/cn'
+import { cn } from '@techsign/shared'
 
 export interface MagneticProps extends React.HTMLAttributes<HTMLDivElement> {
   strength?: number // px translate at the edges

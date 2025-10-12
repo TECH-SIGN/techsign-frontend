@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import SplitType from "split-type";
 import gsap from "gsap";
-import type { MyComponentProps, MyComponentRefs, CleanupFn, SplitInstance, Timeline } from "../../types/animations";
+import type { MyComponentProps, MyComponentRefs, CleanupFn, SplitInstance, Timeline } from "@techsign/shared";
 
 const MyComponent: React.FC<MyComponentProps> = ({ title, subtitle, startAnimation = true, titleClassName, subtitleClassName, containerClassName }) => {
   const refs: MyComponentRefs = {

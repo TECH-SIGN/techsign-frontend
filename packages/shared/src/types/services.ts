@@ -16,4 +16,3 @@ export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   fluid?: boolean
   py?: SectionSpacing
 }
-

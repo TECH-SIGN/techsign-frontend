@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import React from "react"
 import { useLocation } from "react-router-dom"
-import { NavItemAnimatorProps } from "../../types/animations"
+import { NavItemAnimatorProps } from "@techsign/shared"
 
 const NavItemAnimator: React.FC<NavItemAnimatorProps> = ({
   text,

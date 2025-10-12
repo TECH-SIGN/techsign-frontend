@@ -1,5 +1,6 @@
+import * as React from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { UseCursorReturn } from '../types/Hooks'
+import { UseCursorReturn } from '@techsign/shared'
 
 export function useCursor(): UseCursorReturn {
   const ref = useRef<HTMLDivElement>(null)

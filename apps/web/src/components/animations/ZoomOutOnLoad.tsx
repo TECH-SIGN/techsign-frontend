@@ -1,6 +1,6 @@
 import { useEffect, useRef, ReactNode } from "react";
 import gsap from "gsap";
-import { ZoomInOnLoadProps } from "../../types/animations";
+import { ZoomInOnLoadProps } from "@techsign/shared";
 
 
 const ZoomInOnLoad: React.FC<ZoomInOnLoadProps> = ({

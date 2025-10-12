@@ -1,7 +1,7 @@
 // components/animations/AnimatedFadeIn.tsx
 import { motion } from "framer-motion"
 import { ReactNode } from "react"
-import { AnimatedFadeInProps } from "../../types/animations"
+import { AnimatedFadeInProps } from "@techsign/shared"
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },

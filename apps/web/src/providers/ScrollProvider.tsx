@@ -1,7 +1,7 @@
 // src/providers/ScrollProvider.tsx
 import * as React from "react"
 import { useSmoothScroll } from "../hooks/useSmoothScroll"
-import { useGsapAnimations } from "../hooks/useGsapAnimations"
+import { useGsapAnimations } from "@techsign/animations"
 
 export interface ScrollProviderProps {
   children: React.ReactNode

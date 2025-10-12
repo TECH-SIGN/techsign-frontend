@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { cn } from '../../lib/cn'
-import type { ServiceCardProps } from '../../types/services'
+import { cn } from '@techsign/shared'
+import type { ServiceCardProps } from '@techsign/shared'
 import ZoomOutOnLoad from '../animations/ZoomOutOnLoad'
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ title, className, videoSrc, overlay = true, ...props }) => {

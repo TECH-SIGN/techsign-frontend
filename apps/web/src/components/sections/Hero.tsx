@@ -1,5 +1,5 @@
 import * as React from "react"
-import { cn } from "../../lib/cn"
+import { cn } from "@techsign/shared"
 import MyComponent from "../animations/splitTextAnimation"
 import Container from "../layout/Spacing/Container"
 import ZoomOutOnLoad from "../animations/ZoomOutOnLoad"

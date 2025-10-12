@@ -1,21 +1,28 @@
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { cn } from '../../lib/cn'
+import { cn } from '../cn'
 import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
-import { ButtonProps } from '../../types'
+
+export type ButtonVariant = 'primary' | 'secondary' | 'outline'
+export type ButtonSize = 'sm' | 'md' | 'lg'
+
+export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick'> {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  fullWidth?: boolean
+  transitionTo?: string
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
+}
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60 shadow-sm',
   {
     variants: {
       variant: {
-        primary:
-          'bg-slate-900 text-white hover:bg-slate-950 focus-visible:ring-slate-900',
-        secondary:
-          'bg-slate-100 text-slate-900 hover:bg-slate-200 focus-visible:ring-slate-300',
-        outline:
-          'ring-1 ring-inset ring-slate-300 bg-white text-slate-900 hover:bg-slate-50 focus-visible:ring-slate-400',
+        primary: 'bg-slate-900 text-white hover:bg-slate-950 focus-visible:ring-slate-900',
+        secondary: 'bg-slate-100 text-slate-900 hover:bg-slate-200 focus-visible:ring-slate-300',
+        outline: 'ring-1 ring-inset ring-slate-300 bg-white text-slate-900 hover:bg-slate-50 focus-visible:ring-slate-400',
       },
       size: {
         sm: 'h-9 px-3 text-sm',

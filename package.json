@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "turbo run dev --parallel",
-    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "build:turbo": "turbo run build",
+    "build": "pnpm --filter @techsign/shared build && pnpm --filter @techsign/animations build && pnpm --filter @techsign/ui build && pnpm --filter @techsign/web build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "format": "prettier --write .",
@@ -14,6 +15,7 @@
     "lint:app": "eslint .",
     "preview": "vite preview"
   },
+  "packageManager": "pnpm@10.18.2",
   "workspaces": [
     "apps/*",
     "packages/*"

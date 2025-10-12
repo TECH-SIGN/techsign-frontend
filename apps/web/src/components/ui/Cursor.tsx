@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useCursor } from '../../hooks/useCursor'
-import { cn } from '../../lib/cn'
+import { cn } from '@techsign/shared'
 
 const Cursor: React.FC = () => {
   const { ref, hover, hidden } = useCursor()

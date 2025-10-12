@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { cn } from '../../../lib/cn'
-import { ContainerProps } from '../../../types/container'
+import { cn } from '@techsign/shared'
+import { ContainerProps } from '@techsign/shared'
 
 const Container: React.FC<ContainerProps> = ({ fluid = false, className, ...props }) => {
   return (

@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Container from './Container'
-import { cn } from '../../../lib/cn'
-import { SectionProps } from '../../../types'
+import { cn, SectionProps } from '@techsign/shared'
 
 const spacingMap: Record<NonNullable<SectionProps['py']>, string> = {
   tight: 'py-8',

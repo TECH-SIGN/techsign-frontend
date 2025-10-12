@@ -1,7 +1,7 @@
 import * as React from "react"
-import { cn } from "../../lib/cn"
-import { Button } from "../ui"
-import { FeatureCardProps } from "../../types"
+import { cn } from "@techsign/shared"
+import { Button } from "@techsign/ui"
+import { FeatureCardProps } from "@techsign/shared"
 
 
 export const FeatureCard: React.FC<FeatureCardProps> = React.memo(
