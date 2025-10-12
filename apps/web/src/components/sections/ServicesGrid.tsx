@@ -8,9 +8,7 @@ const ServicesGrid: React.FC = () => {
       {SERVICES.map((s) => (
         <ServiceCard
           key={s.id}
-          title={s.title}
           videoSrc={s.videoSrc}
-          // poster={s.poster}
         />
       ))}
     </div>

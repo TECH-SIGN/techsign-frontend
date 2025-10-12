@@ -2,13 +2,11 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
-import { useLocation } from "react-router-dom";
 import { LogoAnimatorProps } from "@techsign/shared";
 
 
 const LogoAnimator: React.FC<LogoAnimatorProps> = ({ text, className, animate = true }) => {
   const logoRef = useRef<HTMLHeadingElement | null>(null);
-  const location = useLocation();
 
   useEffect(() => {
     if (!animate || !logoRef.current) return;
@@ -43,11 +41,13 @@ const LogoAnimator: React.FC<LogoAnimatorProps> = ({ text, className, animate = 
       split?.revert();
       tl.kill();
     };
-  }, [location.pathname, text, animate]);
+  }, [text, animate]);
 
   // simple fallback render agar animation fail ho jaye
   return (
-    <h1 ref={logoRef} className={`font-bold text-2xl text-slate-900 ${className ?? ""}`}>
+    <h1 key={animate ? 'animate' : 'noanimate'}
+      ref={logoRef}
+      className={`font-bold text-2xl text-slate-900 ${className ?? ""}`}>
       {text}
     </h1>
   );
