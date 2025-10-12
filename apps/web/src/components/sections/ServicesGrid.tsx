@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { SERVICES } from '../../constants/services'
 import ServiceCard from '../cards/ServiceCard'
+import { SERVICES } from '../../constants/services'
 
 const ServicesGrid: React.FC = () => {
   return (
@@ -8,7 +8,7 @@ const ServicesGrid: React.FC = () => {
       {SERVICES.map((s) => (
         <ServiceCard
           key={s.id}
-          // title={s.title}
+          title={s.title}
           videoSrc={s.videoSrc}
           // poster={s.poster}
         />

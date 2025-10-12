@@ -4,7 +4,7 @@ import animateCss from 'tw-animate-css'
 
 const config: Config = {
   presets: [preset],
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/**/*.{js,ts,jsx,tsx}', '../../packages/ui/src/**/*.{js,ts,jsx,tsx}', '../../packages/shared/src/**/*.{js,ts,jsx,tsx}'],
   important: '#root',
   theme: {
     extend: {

@@ -1,6 +1,6 @@
 import * as React from "react"
-import { BRAND_NAME } from "../constants"
-import { Button } from "../components/ui"
+import { BRAND_NAME } from "@techsign/shared"
+import { Button } from "@techsign/ui"
 import Hero from '../components/sections/Hero'
 import shortVideo from '../assets/short.mp4'
 import Magnetic from '../components/ui/Magnetic'

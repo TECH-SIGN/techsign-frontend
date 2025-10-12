@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { UseSmoothScrollOptions } from '../types/Hooks'
+import { UseSmoothScrollOptions } from '@techsign/shared'
 
 // Lazy import to avoid SSR and bundle bloat when not needed
 export function useSmoothScroll(enabled: UseSmoothScrollOptions  = true) {

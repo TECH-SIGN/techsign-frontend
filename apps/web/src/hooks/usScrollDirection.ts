@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { UseScrollDirectionReturn } from "../types/Hooks"
+import { UseScrollDirectionReturn } from "@techsign/shared"
 
 export function useScrollDirection(): UseScrollDirectionReturn {
   const [hidden, setHidden] = useState(false)

@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react'
-import { UseGsapAnimationsOptions } from '../types/Hooks';
+import { UseGsapAnimationsOptions } from '@techsign/shared';
 
 export function useGsapAnimations(enabled: UseGsapAnimationsOptions = true) {
   useLayoutEffect(() => {

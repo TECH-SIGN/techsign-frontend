@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { useOutlet } from "react-router-dom"
 import gsap from "gsap"
-import { PageTransitionRefs } from "../../types/animations"
+import { PageTransitionRefs, LOGO_TEXT, NAVBAR_LINKS } from "@techsign/shared"
 import Navbar from "../layout/Navbar"
-import { LOGO_TEXT, NAVBAR_LINKS } from "../../constants"
 
 const PageTransition = () => {
   const refs: PageTransitionRefs = {

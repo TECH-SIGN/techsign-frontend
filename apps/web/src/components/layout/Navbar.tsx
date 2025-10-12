@@ -1,7 +1,7 @@
 // src/components/layout/Navbar.tsx
 import * as React from "react"
-import { cn } from "../../lib/cn"
-import type { NavbarProps, NavLink } from "../../types"
+import { cn } from "@techsign/shared"
+import type { NavbarProps, NavLink } from "@techsign/shared"
 import Container from "./Spacing/Container"
 import { Link, useNavigate } from "react-router-dom"
 import { useScrollDirection } from "../../hooks/usScrollDirection"

@@ -1,11 +1,10 @@
 import * as React from 'react'
-import { cn } from '../../lib/cn'
+import { cn } from '@techsign/shared'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import Cursor from '../ui/Cursor'
 import { Outlet } from 'react-router-dom'
-import { NAVBAR_LINKS, FOOTER_LINKS, LOGO_TEXT, BRAND_NAME } from '../../constants'
-import { LayoutProps } from '../../types'
+import { NAVBAR_LINKS, FOOTER_LINKS, LOGO_TEXT, BRAND_NAME, LayoutProps } from '@techsign/shared'
 
 export const Layout: React.FC<LayoutProps> = ({
   navbar,

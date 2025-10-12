@@ -1,8 +1,7 @@
 import * as React from 'react'
-import { cn } from '../../lib/cn'
+import { cn, FooterProps } from '@techsign/shared'
 import Container from './Spacing/Container'
 import { useNavigate } from 'react-router-dom'
-import { FooterProps } from '../../types'
 
 export const Footer: React.FC<FooterProps> = ({
   links = [],

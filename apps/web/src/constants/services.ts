@@ -1,9 +1,26 @@
-import type { Service } from '../types'
-import shortvideo from '../assets/short.mp4'
+import shortVideo from '../assets/short.mp4'
 
-export const SERVICES: Service[] = [
+export type ServiceItem = {
+  id: string
+  title: string
+  videoSrc: string
+  poster?: string
+}
+
+export const SERVICES: ServiceItem[] = [
   {
-    id: 'privacy-security',
-    videoSrc: shortvideo,
+    id: 'web-dev',
+    title: 'Web Development',
+    videoSrc: shortVideo,
+  },
+  {
+    id: 'backend-cloud',
+    title: 'Backend & Cloud',
+    videoSrc: shortVideo,
+  },
+  {
+    id: 'ai-automation',
+    title: 'AI & Automation',
+    videoSrc: shortVideo,
   },
 ]

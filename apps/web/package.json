@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@techsign/ui": "workspace:*",
+    "@techsign/shared": "workspace:*",
+    "@techsign/animations": "workspace:*",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fontsource/inter": "^5.2.6",

@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
 import { useLocation } from "react-router-dom";
-import { LogoAnimatorProps } from "../../types/animations";
+import { LogoAnimatorProps } from "@techsign/shared";
 
 
 const LogoAnimator: React.FC<LogoAnimatorProps> = ({ text, className, animate = true }) => {
