@@ -10,8 +10,8 @@ const Services: React.FC = () => {
         <MyComponent
           title="Our Services"
           subtitle="Explore what TechSign can do for you"
-          titleClassName="text-xl sm:text-xl lg:text-xl mt-20"
-          subtitleClassName="text-5xl sm:text-5xl lg:text-5xl"
+          titleClassName="text-2xl sm:text-2xl lg:text-2xl mt-20 leading-tight"
+          subtitleClassName="text-5xl sm:text-5xl lg:text-5xl leading-tight"
         />
       </Section>
 

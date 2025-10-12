@@ -13,14 +13,4 @@ export const SERVICES: ServiceItem[] = [
     title: 'Web Development',
     videoSrc: shortVideo,
   },
-  {
-    id: 'backend-cloud',
-    title: 'Backend & Cloud',
-    videoSrc: shortVideo,
-  },
-  {
-    id: 'ai-automation',
-    title: 'AI & Automation',
-    videoSrc: shortVideo,
-  },
 ]

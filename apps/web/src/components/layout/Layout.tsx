@@ -19,14 +19,6 @@ export const Layout: React.FC<LayoutProps> = ({
       className={cn('min-h-screen w-full bg-white text-slate-950 flex flex-col', className)}
       {...props}
     >
-      <Navbar
-        logo={navbar?.logo ?? LOGO_TEXT}
-        logoHref={navbar?.logoHref}
-        links={navbar?.links ?? NAVBAR_LINKS}
-        rightActions={navbar?.rightActions}
-        sticky={navbar?.sticky}
-        className={navbar?.className}
-      />
       <main className={cn('mx-auto w-full flex-1 py-10 bg-white', containerClassName)}>
         {children ?? <Outlet />}
       </main>
