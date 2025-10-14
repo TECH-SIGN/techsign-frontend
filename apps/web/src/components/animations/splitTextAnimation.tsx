@@ -39,7 +39,7 @@ const MyComponent: React.FC<MyComponentProps> = ({ title, subtitle, startAnimati
       const tl: Timeline = gsap.timeline();
       tl.from(words, {
         yPercent: 105,
-        duration: 1,
+        duration: 0.7,
         ease: "power4.out",
         stagger: 0.15,
         delay,
@@ -60,7 +60,7 @@ const MyComponent: React.FC<MyComponentProps> = ({ title, subtitle, startAnimati
     };
 
     const cleanupTitle = animateWords(refs.titleRef.current, 0);
-    const cleanupSubtitle = animateWords(refs.subtitleRef.current, 0.5);
+    const cleanupSubtitle = animateWords(refs.subtitleRef.current, 0);
 
     return () => {
       cleanupTitle?.();

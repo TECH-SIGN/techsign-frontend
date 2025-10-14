@@ -31,7 +31,7 @@ const LogoAnimator: React.FC<LogoAnimatorProps> = ({ text, className, animate = 
     tl.to(chars, {
       scale: 1,
       opacity: 1,
-      duration: 0.6,
+      duration: 1.0,
       ease: "power4.out",
       stagger: 0.1,
     });
