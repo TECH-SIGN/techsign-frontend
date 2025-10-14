@@ -91,6 +91,7 @@ export interface NavbarHighlightOptions {
   ease?: string
   linkSelector?: string
   indicatorSelector?: string
+  delayAfterTransition?: number
 }
 
 

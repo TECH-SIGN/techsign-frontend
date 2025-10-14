@@ -31,6 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({
     indicatorSelector: ".nav-indicator",
     duration: 0.6,
     ease: "power3.out",
+    delayAfterTransition: 900,
   })
 
   React.useEffect(() => {
