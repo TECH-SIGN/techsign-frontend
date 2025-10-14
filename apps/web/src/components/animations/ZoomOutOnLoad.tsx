@@ -6,8 +6,8 @@ import { ZoomInOnLoadProps } from "@techsign/shared";
 const ZoomInOnLoad: React.FC<ZoomInOnLoadProps> = ({
   children,
   className = "",
-  fromScale = 0.5,
-  duration = 2.3,
+  fromScale = 0.6,
+  duration = 2.5,
   ease = "power2.out",
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null)

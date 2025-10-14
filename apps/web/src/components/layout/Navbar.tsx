@@ -8,6 +8,7 @@ import { useScrollDirection } from "../../hooks/usScrollDirection"
 import LogoAnimator from "../animations/LogoAnimator"
 import NavItemAnimator from "../animations/NavItemAnimater"
 import { motion, AnimatePresence } from "framer-motion"
+import { useNavHighlight } from "../../hooks/useNavbarHighlight"
 
 const Navbar: React.FC<NavbarProps> = ({
   logo,
@@ -22,8 +23,16 @@ const Navbar: React.FC<NavbarProps> = ({
   const [open, setOpen] = React.useState(false)
   const menuRef = React.useRef<HTMLDivElement | null>(null)
   const navigate = useNavigate()
-
   const hidden = useScrollDirection()
+
+  // ✅ Add GSAP Nav Highlight Hook
+  useNavHighlight({
+    linkSelector: ".nav-link",
+    indicatorSelector: ".nav-indicator",
+    duration: 0.6,
+    ease: "power3.out",
+    delayAfterTransition: 900,
+  })
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -38,10 +47,8 @@ const Navbar: React.FC<NavbarProps> = ({
       if (!menuRef.current) return
       const target = e.target as Node
       const button = document.querySelector("#menu-toggle-btn")
-      // console.log("clicked target:", target, "is button?", button?.contains(target))
-      if (button && button.contains(target)) return;
+      if (button && button.contains(target)) return
       if (open && !menuRef.current.contains(target)) {
-        // console.log("closing menu...")
         setOpen(false)
       }
     }
@@ -89,14 +96,23 @@ const Navbar: React.FC<NavbarProps> = ({
                   onClick={(e) => {
                     if (window.location.pathname === (logoHref ?? "/")) {
                       e.preventDefault()
-                      window.location.reload() // force reload if already on same path
+                      window.location.reload()
                     }
                   }}
                 >
-                  <LogoAnimator key={animateNavItems ? 'animate' : 'noanimate'} text={logo} animate={animateNavItems} />
+                  <LogoAnimator
+                    key={animateNavItems ? "animate" : "noanimate"}
+                    text={logo}
+                    animate={animateNavItems}
+                  />
                 </Link>
               ) : (
-                <a href={logoHref ?? "/"} className="inline-flex items-center" aria-label="Home" data-cursor="hover">
+                <a
+                  href={logoHref ?? "/"}
+                  className="inline-flex items-center"
+                  aria-label="Home"
+                  data-cursor="hover"
+                >
                   {logo}
                 </a>
               )
@@ -104,7 +120,13 @@ const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Desktop links */}
-          <div className="hidden md:flex md:items-center md:gap-6 pr-18">
+          <div className="hidden md:flex md:items-center md:gap-6 pr-18 relative">
+            {/* ✅ GSAP Moving Indicator */}
+            <span
+              className="nav-indicator absolute bottom-[-4px] left-0 h-[2px] bg-slate-900 block"
+              style={{ width: 0 }}
+            />
+
             <ul className="flex items-center gap-14">
               {links.map((item, index) => (
                 <li key={`${item.href}-${index}`} className="overflow-hidden">
@@ -119,15 +141,21 @@ const Navbar: React.FC<NavbarProps> = ({
                         setOpen(false)
                       }
                     }}
-                    className="group relative block overflow-hidden text-lg font-medium text-slate-950"
+                    className="nav-link group relative block overflow-hidden text-lg font-medium text-slate-950"
                     data-cursor="hover"
                   >
-                    <NavItemAnimator text={item.label} delay={index * 0.2} animate={animateNavItems} />
+                    <NavItemAnimator
+                      text={item.label}
+                      delay={index * 0.2}
+                      animate={animateNavItems}
+                    />
                   </a>
                 </li>
               ))}
             </ul>
-            {rightActions && <div className="ml-4 flex items-center gap-2">{rightActions}</div>}
+            {rightActions && (
+              <div className="ml-4 flex items-center gap-2">{rightActions}</div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -140,7 +168,7 @@ const Navbar: React.FC<NavbarProps> = ({
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={(e) => {
-                e.stopPropagation();
+                e.stopPropagation()
                 setOpen((prev) => !prev)
               }}
             >
@@ -174,17 +202,26 @@ const Navbar: React.FC<NavbarProps> = ({
         {/* Mobile menu */}
         <AnimatePresence>
           {open && (
-            <motion.div ref={menuRef} id="mobile-menu"
-              initial={{ x: "100%", opacity: 0 }}      // ✅ start: right se bahar
-              animate={{ x: 0, opacity: 1 }}           // ✅ enter: screen me aa raha hai
-              exit={{ x: "100%", opacity: 0 }}         // ✅ exit: wapas right side chala gaya
-              transition={{ type: "tween", duration: 0.6, ease: "easeInOut" }} className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg">
+            <motion.div
+              ref={menuRef}
+              id="mobile-menu"
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: "100%", opacity: 0 }}
+              transition={{ type: "tween", duration: 0.6, ease: "easeInOut" }}
+              className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg"
+            >
               {[
                 { label: "Home", key: "mobile-home", href: "/#home" },
                 { label: "Services", key: "mobile-services", href: "/services" },
                 { label: "Contact", key: "mobile-contact", href: "/contact" },
               ].map((item) => (
-                <Link key={item.key} to={item.href} className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200" onClick={() => setOpen(false)}>
+                <Link
+                  key={item.key}
+                  to={item.href}
+                  className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200"
+                  onClick={() => setOpen(false)}
+                >
                   {item.label}
                 </Link>
               ))}
@@ -192,7 +229,7 @@ const Navbar: React.FC<NavbarProps> = ({
           )}
         </AnimatePresence>
       </Container>
-    </nav >
+    </nav>
   )
 }
 

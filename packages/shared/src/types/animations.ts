@@ -80,3 +80,18 @@ export interface PortfolioVideoProps {
 export interface ZoomInOnLoadProps extends AnimationBaseProps {
   fromScale?: number
 }
+
+export interface NavLink {
+  label: string
+  href: string
+}
+
+export interface NavbarHighlightOptions {
+  duration?: number
+  ease?: string
+  linkSelector?: string
+  indicatorSelector?: string
+  delayAfterTransition?: number
+}
+
+
