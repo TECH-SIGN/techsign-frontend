@@ -67,3 +67,9 @@ export default tseslint.config([
   },
 ])
 ```
+
+
+Remove-Item -Path "packages/shared/dist" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "packages/shared/tsconfig.tsbuildinfo" -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "packages/animations/dist" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "packages/animations/tsconfig.tsbuildinfo" -Force -ErrorAction SilentlyContinue
