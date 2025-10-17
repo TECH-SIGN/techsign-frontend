@@ -14,7 +14,6 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export interface LayoutProps extends HTMLAttributes<HTMLDivElement> {
-  navbar?: Omit<NavbarProps, 'className'> & { className?: string }
   footer?: Omit<FooterProps, 'className'> & { className?: string }
   containerClassName?: string
   children?: ReactNode
