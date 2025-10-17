@@ -1,8 +1,6 @@
 import { HTMLAttributes, ReactNode } from "react"
-export type NavLink = {
-  label: string
-  href: string
-}
+import { NavLink } from "./animations"
+
 
 export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
   logo?: string | React.ReactNode
