@@ -1,7 +1,6 @@
-// src/components/layout/Navbar.tsx
 import * as React from "react"
 import { cn } from "@techsign/shared"
-import type { NavbarProps, NavLink } from "@techsign/shared"
+import type { NavbarProps } from "@techsign/shared"
 import Container from "./Spacing/Container"
 import { Link, useNavigate } from "react-router-dom"
 import { useScrollDirection } from "../../hooks/usScrollDirection"
@@ -211,13 +210,9 @@ const Navbar: React.FC<NavbarProps> = ({
               transition={{ type: "tween", duration: 0.6, ease: "easeInOut" }}
               className="bg-white absolute top-16 left-0 right-0 w-full md:hidden pt-4 pb-5 space-y-1 shadow-lg"
             >
-              {[
-                { label: "Home", key: "mobile-home", href: "/#home" },
-                { label: "Services", key: "mobile-services", href: "/services" },
-                { label: "Contact", key: "mobile-contact", href: "/contact" },
-              ].map((item) => (
+              {links.map((item) => (
                 <Link
-                  key={item.key}
+                  key={item.href}
                   to={item.href}
                   className="block px-3 py-2 rounded-md text-slate-800 hover:bg-slate-200"
                   onClick={() => setOpen(false)}

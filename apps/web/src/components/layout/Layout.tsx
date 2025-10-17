@@ -1,13 +1,11 @@
 import * as React from 'react'
 import { cn } from '@techsign/shared'
-import Navbar from './Navbar'
 import Footer from './Footer'
 import Cursor from '../ui/Cursor'
 import { Outlet } from 'react-router-dom'
-import { NAVBAR_LINKS, FOOTER_LINKS, LOGO_TEXT, BRAND_NAME, LayoutProps } from '@techsign/shared'
+import { FOOTER_LINKS, BRAND_NAME, LayoutProps } from '@techsign/shared'
 
 export const Layout: React.FC<LayoutProps> = ({
-  navbar,
   footer,
   className,
   containerClassName,
