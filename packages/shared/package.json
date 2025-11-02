@@ -15,6 +15,7 @@
   "scripts": {
     "build": "tsc --build",
     "lint": "eslint . --ext .ts,.tsx",
+    "clean": "rimraf dist *.tsbuildinfo",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
