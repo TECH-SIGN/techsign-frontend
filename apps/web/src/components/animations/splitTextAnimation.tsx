@@ -2,9 +2,22 @@
 import React, { useRef, useEffect } from "react";
 import SplitType from "split-type";
 import gsap from "gsap";
-import type { MyComponentProps, MyComponentRefs, CleanupFn, SplitInstance, Timeline } from "@techsign/shared";
+import type {
+  MyComponentProps,
+  MyComponentRefs,
+  CleanupFn,
+  SplitInstance,
+  Timeline,
+} from "@techsign/shared";
 
-const MyComponent: React.FC<MyComponentProps> = ({ title, subtitle, startAnimation = true, titleClassName, subtitleClassName, containerClassName }) => {
+const MyComponent: React.FC<MyComponentProps> = ({
+  title,
+  subtitle,
+  startAnimation = true,
+  titleClassName,
+  subtitleClassName,
+  containerClassName,
+}) => {
   const refs: MyComponentRefs = {
     titleRef: useRef<HTMLHeadingElement>(null),
     subtitleRef: useRef<HTMLParagraphElement>(null),
@@ -12,10 +25,15 @@ const MyComponent: React.FC<MyComponentProps> = ({ title, subtitle, startAnimati
 
   useEffect(() => {
     if (!startAnimation) return;
-    const animateWords = (element: HTMLElement | null, delay = 0): CleanupFn | undefined => {
+    const animateWords = (
+      element: HTMLElement | null,
+      delay = 0,
+    ): CleanupFn | undefined => {
       if (!element) return;
 
-      const split: SplitInstance = new SplitType(element, { types: "words" }) as SplitInstance;
+      const split: SplitInstance = new SplitType(element, {
+        types: "words",
+      }) as SplitInstance;
       const words: HTMLElement[] = Array.from(split.words ?? []);
 
       if (words.length === 0) {
@@ -66,9 +84,9 @@ const MyComponent: React.FC<MyComponentProps> = ({ title, subtitle, startAnimati
       cleanupTitle?.();
       cleanupSubtitle?.();
     };
-  }, [title, subtitle,  startAnimation]);
+  }, [title, subtitle, startAnimation]);
 
-    return (
+  return (
     <div className={`text-center ${containerClassName ?? ""}`}>
       <h1
         ref={refs.titleRef}

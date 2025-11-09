@@ -1,15 +1,15 @@
 // useCursor
 export interface UseCursorReturn {
-  ref: React.RefObject<HTMLDivElement | null>
-  hover: boolean
-  hidden: boolean
+  ref: React.RefObject<HTMLDivElement | null>;
+  hover: boolean;
+  hidden: boolean;
 }
 
 // useGsapAnimations
-export type UseGsapAnimationsOptions = boolean // enabled or not
+export type UseGsapAnimationsOptions = boolean; // enabled or not
 
 // useSmoothScroll
-export type UseSmoothScrollOptions = boolean
+export type UseSmoothScrollOptions = boolean;
 
 // useScrollDirection
-export type UseScrollDirectionReturn = boolean
+export type UseScrollDirectionReturn = boolean;

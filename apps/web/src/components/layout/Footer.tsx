@@ -1,38 +1,43 @@
-import * as React from 'react'
-import { cn, FooterProps } from '@techsign/shared'
-import Container from './Spacing/Container'
-import { useNavigate } from 'react-router-dom'
+import * as React from "react";
+import { cn, FooterProps } from "@techsign/shared";
+import Container from "./Spacing/Container";
+import { useNavigate } from "react-router-dom";
 
 export const Footer: React.FC<FooterProps> = ({
   links = [],
-  brand = 'TechSign',
+  brand = "TechSign",
   className,
   ...props
 }) => {
-  const navigate = useNavigate()
-  const year = new Date().getFullYear()
+  const navigate = useNavigate();
+  const year = new Date().getFullYear();
 
   // animation only for Services & Contact
   const navigateWithRect = (href: string, el: Element | null) => {
     if (!el) {
-      navigate(href)
-      return
+      navigate(href);
+      return;
     }
-    const r = el.getBoundingClientRect()
-    const originRect = { left: r.left, top: r.top, width: r.width, height: r.height }
+    const r = el.getBoundingClientRect();
+    const originRect = {
+      left: r.left,
+      top: r.top,
+      width: r.width,
+      height: r.height,
+    };
 
-    if (href === '/services' || href === '/contact') {
-      navigate(href, { state: { originRect } }) // animation
+    if (href === "/services" || href === "/contact") {
+      navigate(href, { state: { originRect } }); // animation
     } else {
-      navigate(href) // normal navigation
+      navigate(href); // normal navigation
     }
-  }
+  };
 
   return (
     <footer
       className={cn(
-        'border-t border-slate-200 px-15 bg-white/70 backdrop-blur',
-        className
+        "border-t border-slate-200 px-15 bg-white/70 backdrop-blur",
+        className,
       )}
       aria-label="Site Footer"
       {...props}
@@ -50,8 +55,8 @@ export const Footer: React.FC<FooterProps> = ({
                   <a
                     href={l.href}
                     onClick={(e) => {
-                      e.preventDefault()
-                      navigateWithRect(l.href, e.currentTarget)
+                      e.preventDefault();
+                      navigateWithRect(l.href, e.currentTarget);
                     }}
                     className="text-sm text-gray-600 hover:text-gray-900"
                   >
@@ -64,7 +69,7 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
       </Container>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

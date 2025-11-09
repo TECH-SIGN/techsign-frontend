@@ -1,17 +1,17 @@
-import * as React from "react"
-import { cn } from "@techsign/shared"
-import MyComponent from "../animations/splitTextAnimation"
-import Container from "../layout/Spacing/Container"
-import ZoomOutOnLoad from "../animations/ZoomOutOnLoad"
+import * as React from "react";
+import { cn } from "@techsign/shared";
+import MyComponent from "../animations/splitTextAnimation";
+import Container from "../layout/Spacing/Container";
+import ZoomOutOnLoad from "../animations/ZoomOutOnLoad";
 
 export interface HeroProps extends React.HTMLAttributes<HTMLDivElement> {
-  title: string
-  subtitle?: string
-  ctaLabel?: string
-  ctaHref?: string
-  videoSrc?: string
-  poster?: string
-  overlay?: boolean
+  title: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  videoSrc?: string;
+  poster?: string;
+  overlay?: boolean;
 }
 
 const Hero: React.FC<HeroProps> = ({
@@ -43,25 +43,25 @@ const Hero: React.FC<HeroProps> = ({
 
       {videoSrc ? (
         <ZoomOutOnLoad>
-        <div className="relative h-[85vh] w-full rounded-[40px] overflow-hidden">
-          <video
-            className="block w-full h-full object-cover rounded-[40px]"
-            src={videoSrc}
-            poster={poster}
-            preload="metadata"
-            muted
-            playsInline
-            autoPlay
-            loop
-          />
-          {overlay && (
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30 rounded-[40px]" />
-          )}
-        </div>
+          <div className="relative h-[85vh] w-full rounded-[40px] overflow-hidden">
+            <video
+              className="block w-full h-full object-cover rounded-[40px]"
+              src={videoSrc}
+              poster={poster}
+              preload="metadata"
+              muted
+              playsInline
+              autoPlay
+              loop
+            />
+            {overlay && (
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/30 rounded-[40px]" />
+            )}
+          </div>
         </ZoomOutOnLoad>
       ) : null}
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

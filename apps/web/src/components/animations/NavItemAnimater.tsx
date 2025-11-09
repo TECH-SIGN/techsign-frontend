@@ -1,16 +1,15 @@
-import { motion } from "framer-motion"
-import React from "react"
-import { NavItemAnimatorProps } from "@techsign/shared"
+import { motion } from "framer-motion";
+import React from "react";
+import { NavItemAnimatorProps } from "@techsign/shared";
 
 const NavItemAnimator: React.FC<NavItemAnimatorProps> = ({
   text,
   delay = 0,
   animate = true, // ✅ add animate prop
 }) => {
-
   // Agar animate false hai → sirf normal render karo
   if (!animate) {
-    return <span className="relative block overflow-hidden group">{text}</span>
+    return <span className="relative block overflow-hidden group">{text}</span>;
   }
 
   // Animate true → Framer Motion animation
@@ -29,7 +28,7 @@ const NavItemAnimator: React.FC<NavItemAnimatorProps> = ({
         {text}
       </span>
     </motion.span>
-  )
-}
+  );
+};
 
-export default NavItemAnimator
+export default NavItemAnimator;
