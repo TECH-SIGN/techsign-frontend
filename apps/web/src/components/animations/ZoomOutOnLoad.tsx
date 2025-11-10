@@ -2,6 +2,7 @@ import { useEffect, useRef, ReactNode, useState } from "react";
 import gsap from "gsap";
 import { ZoomInOnLoadProps } from "@techsign/shared";
 
+
 const ZoomInOnLoad: React.FC<ZoomInOnLoadProps> = ({
   children,
   className = "",
@@ -9,23 +10,23 @@ const ZoomInOnLoad: React.FC<ZoomInOnLoadProps> = ({
   duration = 2.5,
   ease = "power2.out",
 }) => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isReady, setIsReady] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const [isReady, setIsReady] = useState(false)
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const container = containerRef.current
+    if (!container) return
 
     // Find a <video> element inside children
-    const video = container.querySelector("video");
-    videoRef.current = video;
+    const video = container.querySelector("video")
+    videoRef.current = video
 
     // Hide content initially
-    gsap.set(container, { opacity: 0, scale: fromScale });
+    gsap.set(container, { opacity: 0, scale: fromScale })
 
     const runAnimation = () => {
-      gsap.killTweensOf(container);
+      gsap.killTweensOf(container)
       gsap.to(container, {
         opacity: 1,
         scale: 1,
@@ -33,26 +34,26 @@ const ZoomInOnLoad: React.FC<ZoomInOnLoadProps> = ({
         ease,
         clearProps: "transform,opacity",
         onStart: () => setIsReady(true),
-      });
-    };
+      })
+    }
 
     // Run when video is ready
     if (video instanceof HTMLVideoElement) {
       if (video.readyState >= 3) {
-        runAnimation();
+        runAnimation()
       } else {
-        const handleLoaded = () => runAnimation();
-        video.addEventListener("loadeddata", handleLoaded, { once: true });
-        return () => video.removeEventListener("loadeddata", handleLoaded);
+        const handleLoaded = () => runAnimation()
+        video.addEventListener("loadeddata", handleLoaded, { once: true })
+        return () => video.removeEventListener("loadeddata", handleLoaded)
       }
     } else {
-      runAnimation();
+      runAnimation()
     }
 
     return () => {
-      gsap.killTweensOf(container);
-    };
-  }, [fromScale, duration, ease]);
+      gsap.killTweensOf(container)
+    }
+  }, [fromScale, duration, ease])
 
   return (
     <div
@@ -63,7 +64,7 @@ const ZoomInOnLoad: React.FC<ZoomInOnLoadProps> = ({
     >
       {children}
     </div>
-  );
-};
+  )
+}
 
 export default ZoomInOnLoad;

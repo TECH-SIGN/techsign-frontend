@@ -1,14 +1,14 @@
-import * as React from "react";
-import { BRAND_NAME } from "@techsign/shared";
-import { Button } from "@techsign/ui";
-import Hero from "../components/sections/Hero";
-import shortVideo from "../assets/short.mp4";
-import Magnetic from "../components/ui/Magnetic";
-import videos from "../assets/videos/Hidden entrance _ 2D animated short (30 seconds Version) - ARWAKE (720p, h264).mp4";
-import PortfolioVideo from "../components/animations/videoOnMouseEnterLeave";
-import AnimatedFadeIn from "../components/animations/AnimatedFadeIn"; // 👈 new import
-import { Layers, Shield, Brain, Globe } from "lucide-react";
-import Container from "../components/layout/Spacing/Container";
+import * as React from "react"
+import { BRAND_NAME } from "@techsign/shared"
+import { Button } from "@techsign/ui"
+import Hero from '../components/sections/Hero'
+import shortVideo from '../assets/short.mp4'
+import Magnetic from '../components/ui/Magnetic'
+import videos from "../assets/videos/Hidden entrance _ 2D animated short (30 seconds Version) - ARWAKE (720p, h264).mp4"
+import PortfolioVideo from "../components/animations/videoOnMouseEnterLeave"
+import AnimatedFadeIn from "../components/animations/AnimatedFadeIn"   // 👈 new import
+import { Layers, Shield, Brain, Globe } from "lucide-react"
+import Container from "../components/layout/Spacing/Container"
 
 const Home: React.FC = () => {
   return (
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
         role="region"
         aria-labelledby="portfolio-heading"
       >
-        <Container className="text-center">
+        <Container className="text-center" >
           <h2
             id="portfolio-heading"
             className="text-5xl font-bold font-montserrat mb-26"
@@ -113,20 +113,16 @@ const Home: React.FC = () => {
                 desc: "Engaging animation with interactive elements.",
               },
             ].map((item, idx) => {
-              const isEven = idx % 2 === 0;
+              const isEven = idx % 2 === 0
               return (
                 <AnimatedFadeIn key={idx} delay={idx * 0.2}>
                   <div
-                    className={`flex flex-col md:flex-row items-center  md:space-x-10 ${
-                      !isEven ? "md:flex-row-reverse md:space-x-reverse" : ""
-                    }`}
+                    className={`flex flex-col md:flex-row items-center  md:space-x-10 ${!isEven ? "md:flex-row-reverse md:space-x-reverse" : ""
+                      }`}
                   >
                     {/* Video */}
                     <div className="aspect-video w-full md:w-1/2">
-                      <PortfolioVideo
-                        src={item.src}
-                        thumbnail={item.thumbnail}
-                      />
+                      <PortfolioVideo src={item.src} thumbnail={item.thumbnail} />
                     </div>
 
                     {/* Detail */}
@@ -140,7 +136,7 @@ const Home: React.FC = () => {
                     </div>
                   </div>
                 </AnimatedFadeIn>
-              );
+              )
             })}
           </div>
         </Container>
@@ -161,7 +157,7 @@ const Home: React.FC = () => {
           >
             Why Choose Us
           </h2>
-
+          
           <div className="grid gap-16 md:grid-cols-4">
             {[
               {
@@ -195,40 +191,38 @@ const Home: React.FC = () => {
             ))}
           </div>
         </div>
+
       </section>
 
       {/* ================= Final CTA Section ================= */}
       <Container className="my-20">
-        <section
-          className="py-28 bg-black/90 text-white text-center rounded-[40px]"
-          role="region"
-          aria-labelledby="cta-heading"
-        >
-          <section className="mx-auto max-w-4xl space-y-8">
-            <h2
-              id="cta-heading"
-              className="text-5xl font-bold font-montserrat"
-              data-parallax="15"
-            >
-              Ready to build your next big project?
-            </h2>
-            <p className="text-lg text-slate-300">
-              Let’s collaborate and craft intelligent, scalable solutions that
-              make a difference.
-            </p>
-            <Magnetic>
-              <Button
-                data-cursor="hover"
-                className="px-10 py-4 text-lg font-bold bg-white text-slate-900 hover:bg-black hover:text-white"
-              >
-                Get in Touch
-              </Button>
-            </Magnetic>
-          </section>
+      <section
+        className="py-28 bg-black/90 text-white text-center rounded-[40px]"
+        role="region"
+        aria-labelledby="cta-heading"
+      >
+        <section className="mx-auto max-w-4xl space-y-8">  
+          <h2
+            id="cta-heading"
+            className="text-5xl font-bold font-montserrat"
+            data-parallax="15"
+          >
+            Ready to build your next big project?
+          </h2>
+          <p className="text-lg text-slate-300">
+            Let’s collaborate and craft intelligent, scalable solutions that
+            make a difference.
+          </p>
+          <Magnetic>
+            <Button data-cursor="hover" className="px-10 py-4 text-lg font-bold bg-white text-slate-900 hover:bg-black hover:text-white">
+              Get in Touch
+            </Button>
+          </Magnetic>
         </section>
+      </section>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

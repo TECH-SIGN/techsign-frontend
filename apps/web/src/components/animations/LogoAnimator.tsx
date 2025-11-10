@@ -4,11 +4,8 @@ import gsap from "gsap";
 import SplitType from "split-type";
 import { LogoAnimatorProps } from "@techsign/shared";
 
-const LogoAnimator: React.FC<LogoAnimatorProps> = ({
-  text,
-  className,
-  animate = true,
-}) => {
+
+const LogoAnimator: React.FC<LogoAnimatorProps> = ({ text, className, animate = true }) => {
   const logoRef = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
@@ -48,11 +45,9 @@ const LogoAnimator: React.FC<LogoAnimatorProps> = ({
 
   // simple fallback render agar animation fail ho jaye
   return (
-    <h1
-      key={animate ? "animate" : "noanimate"}
+    <h1 key={animate ? 'animate' : 'noanimate'}
       ref={logoRef}
-      className={`font-bold text-2xl text-slate-900 ${className ?? ""}`}
-    >
+      className={`font-bold text-2xl text-slate-900 ${className ?? ""}`}>
       {text}
     </h1>
   );
