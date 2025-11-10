@@ -1,16 +1,15 @@
-import shortVideo from '../assets/short.mp4'
+import shortVideo from "../assets/short.mp4";
 
 export type ServiceItem = {
-  id: string
-  title: string
-  videoSrc: string
-  poster?: string
-}
+  id: number;
+  title: string;
+  videoSrc: string;
+};
 
 export const SERVICES: ServiceItem[] = [
   {
-    id: 'web-dev',
-    title: 'Web Development',
+    id: 1,
+    title: "video",
     videoSrc: shortVideo,
   },
-]
+];

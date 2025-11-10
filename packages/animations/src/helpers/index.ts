@@ -1,1 +1,1 @@
-export * from './motionUtils'
+export * from "./motionUtils";

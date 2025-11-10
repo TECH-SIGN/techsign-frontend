@@ -1,10 +1,10 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
 const preset: Config = {
   theme: {
     extend: {},
   },
   plugins: [],
-}
+};
 
-export default preset
+export default preset;

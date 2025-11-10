@@ -1,14 +1,20 @@
-import * as React from 'react'
-import { cn } from '@techsign/shared'
-import type { ServiceCardProps } from '@techsign/shared'
-import ZoomOutOnLoad from '../animations/ZoomOutOnLoad'
+import * as React from "react";
+import { cn } from "@techsign/shared";
+import type { ServiceCardProps } from "@techsign/shared";
+import ZoomOutOnLoad from "../animations/ZoomOutOnLoad";
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, className, videoSrc, overlay = true, ...props }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({
+  title,
+  className,
+  videoSrc,
+  overlay = true,
+  ...props
+}) => {
   return (
     <div className={cn()} {...props}>
-      <h3 className="font-semibold text-slate-900">{title}</h3>
+      <h3 className="font-semibold">{title}</h3>
       {videoSrc ? (
-        <ZoomOutOnLoad >
+        <ZoomOutOnLoad>
           <div className="relative h-[85vh] w-full rounded-[40px] overflow-hidden">
             <video
               className="block w-full h-full object-cover rounded-[40px]"
@@ -26,7 +32,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, className, videoSrc, o
         </ZoomOutOnLoad>
       ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default ServiceCard
+export default ServiceCard;

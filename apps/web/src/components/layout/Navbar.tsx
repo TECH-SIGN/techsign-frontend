@@ -1,13 +1,13 @@
-import * as React from "react"
-import { cn } from "@techsign/shared"
-import type { NavbarProps } from "@techsign/shared"
-import Container from "./Spacing/Container"
-import { Link, useNavigate } from "react-router-dom"
-import { useScrollDirection } from "../../hooks/usScrollDirection"
-import LogoAnimator from "../animations/LogoAnimator"
-import NavItemAnimator from "../animations/NavItemAnimater"
-import { motion, AnimatePresence } from "framer-motion"
-import { useNavHighlight } from "../../hooks/useNavbarHighlight"
+import * as React from "react";
+import { cn } from "@techsign/shared";
+import type { NavbarProps } from "@techsign/shared";
+import Container from "./Spacing/Container";
+import { Link, useNavigate } from "react-router-dom";
+import { useScrollDirection } from "../../hooks/usScrollDirection";
+import LogoAnimator from "../animations/LogoAnimator";
+import NavItemAnimator from "../animations/NavItemAnimater";
+import { motion, AnimatePresence } from "framer-motion";
+import { useNavHighlight } from "../../hooks/useNavbarHighlight";
 
 const Navbar: React.FC<NavbarProps> = ({
   logo,
@@ -19,10 +19,10 @@ const Navbar: React.FC<NavbarProps> = ({
   animateNavItems = true,
   ...props
 }) => {
-  const [open, setOpen] = React.useState(false)
-  const menuRef = React.useRef<HTMLDivElement | null>(null)
-  const navigate = useNavigate()
-  const hidden = useScrollDirection()
+  const [open, setOpen] = React.useState(false);
+  const menuRef = React.useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
+  const hidden = useScrollDirection();
 
   // ✅ Add GSAP Nav Highlight Hook
   useNavHighlight({
@@ -31,53 +31,53 @@ const Navbar: React.FC<NavbarProps> = ({
     duration: 0.6,
     ease: "power3.out",
     delayAfterTransition: 900,
-  })
+  });
 
   React.useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false)
-    }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [])
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   React.useEffect(() => {
     const onClickOutside = (e: MouseEvent) => {
-      if (!menuRef.current) return
-      const target = e.target as Node
-      const button = document.querySelector("#menu-toggle-btn")
-      if (button && button.contains(target)) return
+      if (!menuRef.current) return;
+      const target = e.target as Node;
+      const button = document.querySelector("#menu-toggle-btn");
+      if (button && button.contains(target)) return;
       if (open && !menuRef.current.contains(target)) {
-        setOpen(false)
+        setOpen(false);
       }
-    }
-    document.addEventListener("click", onClickOutside)
-    return () => document.removeEventListener("click", onClickOutside)
-  }, [open])
+    };
+    document.addEventListener("click", onClickOutside);
+    return () => document.removeEventListener("click", onClickOutside);
+  }, [open]);
 
   const navigateWithRect = (href: string, el: Element | null) => {
     if (!el) {
-      navigate(href)
-      setOpen(false)
-      return
+      navigate(href);
+      setOpen(false);
+      return;
     }
-    const r = el.getBoundingClientRect()
+    const r = el.getBoundingClientRect();
     const originRect = {
       left: r.left,
       top: r.top,
       width: r.width,
       height: r.height,
-    }
-    navigate(href, { state: { originRect } })
-    setOpen(false)
-  }
+    };
+    navigate(href, { state: { originRect } });
+    setOpen(false);
+  };
 
   return (
     <nav
       className={cn(
         "fixed top-0 left-0 z-50 w-full bg-white transition-transform duration-200",
         hidden ? "-translate-y-full" : "translate-y-0",
-        className
+        className,
       )}
       aria-label="Main Navigation"
       {...props}
@@ -94,8 +94,8 @@ const Navbar: React.FC<NavbarProps> = ({
                   data-cursor="hover"
                   onClick={(e) => {
                     if (window.location.pathname === (logoHref ?? "/")) {
-                      e.preventDefault()
-                      window.location.reload()
+                      e.preventDefault();
+                      window.location.reload();
                     }
                   }}
                 >
@@ -132,12 +132,15 @@ const Navbar: React.FC<NavbarProps> = ({
                   <a
                     href={item.href}
                     onClick={(e) => {
-                      e.preventDefault()
-                      if (item.href === "/services" || item.href === "/contact") {
-                        navigateWithRect(item.href, e.currentTarget)
+                      e.preventDefault();
+                      if (
+                        item.href === "/services" ||
+                        item.href === "/contact"
+                      ) {
+                        navigateWithRect(item.href, e.currentTarget);
                       } else {
-                        navigate(item.href)
-                        setOpen(false)
+                        navigate(item.href);
+                        setOpen(false);
                       }
                     }}
                     className="nav-link group relative block overflow-hidden text-lg font-medium text-slate-950"
@@ -167,8 +170,8 @@ const Navbar: React.FC<NavbarProps> = ({
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={(e) => {
-                e.stopPropagation()
-                setOpen((prev) => !prev)
+                e.stopPropagation();
+                setOpen((prev) => !prev);
               }}
             >
               {open ? (
@@ -180,7 +183,11 @@ const Navbar: React.FC<NavbarProps> = ({
                   strokeWidth={1.5}
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               ) : (
                 <svg
@@ -191,7 +198,11 @@ const Navbar: React.FC<NavbarProps> = ({
                   strokeWidth={1.5}
                   stroke="currentColor"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
                 </svg>
               )}
             </button>
@@ -225,7 +236,7 @@ const Navbar: React.FC<NavbarProps> = ({
         </AnimatePresence>
       </Container>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
