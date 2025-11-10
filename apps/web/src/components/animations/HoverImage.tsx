@@ -1,6 +1,7 @@
-import * as React from "react";
-import { motion } from "framer-motion";
-import { HoverImageProps } from "@techsign/shared";
+import * as React from "react"
+import { motion } from "framer-motion"
+import { HoverImageProps } from "@techsign/shared"
+
 
 const HoverImage: React.FC<HoverImageProps> = ({ src, alt, className }) => {
   return (
@@ -17,7 +18,7 @@ const HoverImage: React.FC<HoverImageProps> = ({ src, alt, className }) => {
         transition={{ duration: 0.3, ease: "easeOut" }}
       />
     </motion.div>
-  );
-};
+  )
+}
 
-export default HoverImage;
+export default HoverImage

@@ -1,1 +1,1 @@
-export * from "./useGsapAnimations";
+export * from './useGsapAnimations'

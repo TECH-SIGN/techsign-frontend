@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
-import { UseScrollDirectionReturn } from "@techsign/shared";
+import { useEffect, useState } from "react"
+import { UseScrollDirectionReturn } from "@techsign/shared"
 
 export function useScrollDirection(): UseScrollDirectionReturn {
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
-    let lastScroll = window.scrollY;
+    let lastScroll = window.scrollY
 
     const onScroll = () => {
-      const current = window.scrollY;
+      const current = window.scrollY
       if (current > lastScroll && current > 50) {
-        setHidden(true); // down
+        setHidden(true)  // down
       } else {
-        setHidden(false); // up
+        setHidden(false) // up
       }
-      lastScroll = current;
-    };
+      lastScroll = current
+    }
 
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    window.addEventListener("scroll", onScroll)
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
-  return hidden;
+  return hidden
 }
+

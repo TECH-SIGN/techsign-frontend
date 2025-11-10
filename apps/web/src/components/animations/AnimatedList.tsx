@@ -1,7 +1,8 @@
 // src/components/animations/AnimatedList.tsx
-import { motion } from "framer-motion";
-import React from "react";
-import { AnimatedListProps } from "@techsign/shared";
+import { motion } from "framer-motion"
+import React from "react"
+import { AnimatedListProps } from "@techsign/shared"
+
 
 const AnimatedList: React.FC<AnimatedListProps> = ({
   items,
@@ -26,7 +27,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
         </motion.li>
       ))}
     </ul>
-  );
-};
+  )
+}
 
-export default AnimatedList;
+export default AnimatedList
