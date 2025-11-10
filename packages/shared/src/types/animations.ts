@@ -97,3 +97,13 @@ export interface NavbarHighlightOptions {
   indicatorSelector?: string;
   delayAfterTransition?: number;
 }
+
+export interface AnimatedHeadingProps {
+  title: string;
+
+  subtitle?: string | string[];
+
+  align?: "left" | "center" | "right";
+
+  delay?: number;
+}

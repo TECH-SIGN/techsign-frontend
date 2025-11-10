@@ -57,7 +57,7 @@ const MyComponent: React.FC<MyComponentProps> = ({
       const tl: Timeline = gsap.timeline();
       tl.from(words, {
         yPercent: 105,
-        duration: 0.7,
+        duration: 0.8,
         ease: "power4.out",
         stagger: 0.15,
         delay,

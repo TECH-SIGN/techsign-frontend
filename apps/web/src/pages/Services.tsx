@@ -1,19 +1,34 @@
 import * as React from "react";
 import { Section } from "../components/layout";
 import ServicesGrid from "../components/sections/ServicesGrid";
-import MyComponent from "../components/animations/splitTextAnimation";
+import AnimatedHeading from "../components/animations/AnimatedHeading";
+import gsap from "gsap";
 
 const Services: React.FC = () => {
+  const sectionRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    if (sectionRef.current) {
+      // Start from white → fade to black
+      gsap.fromTo(
+        sectionRef.current,
+        { backgroundColor: "#ffffff" },  // start white
+        {
+          backgroundColor: "rgba(0, 0, 0, 0.93)", // end black/93
+          duration: 3.0,
+          ease: "power4.out",
+        }
+      );
+    }
+  }, []);
   return (
     <div>
-      <Section py="normal">
-        <MyComponent
+      <section ref={sectionRef} className="bg-black/93 px-10 pb-13 pt-2 rounded-4xl mx-22 my-25">
+        <AnimatedHeading
           title="Our Services"
           subtitle="Explore what TechSign can do for you"
-          titleClassName="text-2xl sm:text-2xl lg:text-2xl mt-20 leading-tight"
-          subtitleClassName="text-5xl sm:text-5xl lg:text-5xl leading-tight"
-        />
-      </Section>
+          />
+      </section>
 
       <Section py="normal">
         <ServicesGrid />

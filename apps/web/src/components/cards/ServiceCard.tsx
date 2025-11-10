@@ -12,7 +12,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
 }) => {
   return (
     <div className={cn()} {...props}>
-      <h3 className="font-semibold text-slate-900">{title}</h3>
+      <h3 className="font-semibold">{title}</h3>
       {videoSrc ? (
         <ZoomOutOnLoad>
           <div className="relative h-[85vh] w-full rounded-[40px] overflow-hidden">
