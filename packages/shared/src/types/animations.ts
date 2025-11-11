@@ -107,3 +107,14 @@ export interface AnimatedHeadingProps {
 
   delay?: number;
 }
+
+
+export interface MirrorRevealProps {
+  children: React.ReactNode;
+
+  backgroundColor?: string;
+
+  duration?: number;
+  
+  pieces?: number;
+}

@@ -57,13 +57,13 @@ export default function AnimatedHeading({
       <div>
         <h1
           ref={titleRef}
-          className="text-3xl sm:text-4xl lg:text-4xl font-medium leading-tight mb-6 text-white"
+          className="text-xl sm:text-2xl lg:text-4xl font-semibold leading-tight text-gray-300 mb-3"
         >
           {title}
         </h1>
       </div>
 
-      <div className="flex flex-col text-6xl sm:text-6xl lg:text-8xl font-semibold leading-snug text-white">
+      <div className="flex flex-col text-4xl sm:text-5xl lg:text-8xl font-bold text-white leading-snug tracking-tight">
         {subtitleArray.map((text, i) => (
           <div key={i} className="overflow-hidden">
             <p
