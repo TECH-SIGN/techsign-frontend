@@ -17,7 +17,7 @@ export default function AnimatedHeading({
   useEffect(() => {
     const tl = gsap.timeline({
       delay,
-      defaults: { ease: "power4.out", duration: 3.0 },
+      defaults: { ease: "power4.out", duration: 6.0 },
     });
 
     // 👇 Add label for syncing animations
@@ -46,7 +46,7 @@ export default function AnimatedHeading({
 
   return (
     <div
-      className={`mt-32 overflow-hidden flex flex-col ${
+      className={`my-20 overflow-hidden flex flex-col ${
         align === "center"
           ? "items-center text-center"
           : align === "right"

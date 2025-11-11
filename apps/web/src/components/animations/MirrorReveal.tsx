@@ -55,7 +55,7 @@ export default function MirrorReveal({
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden rounded-4xl mx-10 my-16"
+      className="relative overflow-hidden rounded-4xl mx-auto my-25 max-w-[1345px]"
     >
       {/* Pixel mirror pieces */}
       <div className="absolute inset-0 grid grid-cols-6 grid-rows-6">
@@ -68,7 +68,6 @@ export default function MirrorReveal({
             className="w-full h-full"
             style={{
               backgroundColor,
-              border: "1px solid rgba(255,255,255,0.04)",
               zIndex: 5,
             }}
           ></div>
